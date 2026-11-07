@@ -93,68 +93,77 @@
       transform-origin: center;
     }
 
-    /* Guided Dynamic Motion Demonstration Keyframes */
-    /* 1. Neck Tilt */
-    @keyframes demoHeadTilt {
+    /* Guided Dynamic Motion Demonstration Keyframes (Human Anatomy Realistic Animation) */
+    /* 1. Realistic Head & Cervical Tilt */
+    @keyframes realisticNeckTilt {
       0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(18deg) translate(3px, 2px); }
+      40%, 60% { transform: rotate(26deg); }
     }
-    .anim-head-tilt {
-      transform-origin: 80px 75px;
-      animation: demoHeadTilt 4s ease-in-out infinite;
+    .anim-real-head-tilt {
+      transform-origin: 80px 78px;
+      animation: realisticNeckTilt 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     }
 
-    /* 2. Wrist Rotation & Flexion */
-    @keyframes demoWristFold {
+    /* 2. Realistic Wrist Extension & Flexor Elongation */
+    @keyframes realisticWristPull {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      45%, 65% { transform: rotate(-38deg) translateX(-3px); }
+    }
+    .anim-real-wrist-pull {
+      transform-origin: 75px 76px;
+      animation: realisticWristPull 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* 3. Upper Back & Thoracic Spine Arc (Cat-Cow / Thoracic Extension) */
+    @keyframes realisticThoracicCurve {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.04, 0.96) translateY(-4px); }
+    }
+    .anim-real-spine-curve {
+      transform-origin: 80px 90px;
+      animation: realisticThoracicCurve 5s ease-in-out infinite;
+    }
+
+    /* 4. Realistic Lumbar Spiral Rotation */
+    @keyframes realisticWaistTwist {
+      0%, 100% { transform: scaleX(1) translateX(0); }
+      45%, 60% { transform: scaleX(0.82) translateX(6px); }
+    }
+    .anim-real-waist-twist {
+      transform-origin: 80px 85px;
+      animation: realisticWaistTwist 4.8s ease-in-out infinite;
+    }
+
+    /* 5. Realistic Hip Figure-4 Fold */
+    @keyframes realisticHipFold {
       0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(-25deg); }
+      45%, 65% { transform: rotate(22deg); }
     }
-    .anim-wrist-flex {
-      transform-origin: 80px 80px;
-      animation: demoWristFold 3.5s ease-in-out infinite;
-    }
-
-    /* 3. Scapula Retraction */
-    @keyframes demoScapulaDraw {
-      0%, 100% { transform: scaleX(1); }
-      50% { transform: scaleX(0.85); }
-    }
-    .anim-scapula-draw {
-      transform-origin: 80px 75px;
-      animation: demoScapulaDraw 3.8s ease-in-out infinite;
+    .anim-real-hip-fold {
+      transform-origin: 60px 88px;
+      animation: realisticHipFold 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
-    /* 4. Lumbar & Torso Wave */
-    @keyframes demoSpineWave {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-5px) rotate(-4deg); }
+    /* 6. Realistic Ankle Plantar/Dorsiflexion */
+    @keyframes realisticAnkleFlex {
+      0%, 100% { transform: rotate(-10deg); }
+      50% { transform: rotate(32deg); }
     }
-    .anim-spine-wave {
-      transform-origin: 80px 95px;
-      animation: demoSpineWave 4.2s ease-in-out infinite;
-    }
-
-    /* 5. Hip Fold */
-    @keyframes demoHipFold {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(14deg); }
-    }
-    .anim-hip-rock {
-      transform-origin: 65px 85px;
-      animation: demoHipFold 4s ease-in-out infinite;
+    .anim-real-ankle-flex {
+      transform-origin: 70px 88px;
+      animation: realisticAnkleFlex 3.6s ease-in-out infinite;
     }
 
-    /* 6. Ankle Point & Flex */
-    @keyframes demoAnklePump {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(20deg); }
+    /* 7. Muscle Stretch Glowing Wave */
+    @keyframes muscleGlow {
+      0%, 100% { stroke-opacity: 0.35; stroke-width: 5; }
+      50% { stroke-opacity: 0.95; stroke-width: 8; filter: drop-shadow(0 0 6px #D08C60); }
     }
-    .anim-ankle-pump {
-      transform-origin: 75px 85px;
-      animation: demoAnklePump 3.2s ease-in-out infinite;
+    .anim-muscle-glow {
+      animation: muscleGlow 4s ease-in-out infinite;
     }
 
-    /* 7. Arrow Pulse Hint */
+    /* Arrow Pulse Hint */
     @keyframes arrowFloat {
       0%, 100% { transform: translateY(0); opacity: 0.6; }
       50% { transform: translateY(-4px); opacity: 1; }
@@ -268,7 +277,7 @@
           <!-- Doll SVG Interactive Artboard -->
           <div class="relative w-full max-w-[280px] mx-auto py-2 flex justify-center">
             
-            <svg class="w-64 h-[330px] drop-shadow-sm select-none" viewBox="0 0 240 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg id="dollAcupointSvg" class="w-64 h-[330px] drop-shadow-sm select-none" viewBox="0 0 240 340" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Shadow base -->
               <ellipse cx="120" cy="330" rx="55" ry="7" fill="#E8E6DF"/>
 
@@ -305,76 +314,68 @@
               <!-- Meridian Lines -->
               <path d="M120 42 L120 94 M120 120 L120 210" stroke="#006284" stroke-width="1.2" stroke-dasharray="2,3" opacity="0.35"/>
 
-              <!-- 8 HOTSPOTS -->
+              <!-- FIXED MERIDIAN PIN NODES (8 HOTSPOTS) - 點擊後僅此部位點變色 -->
               <!-- 1. Head -->
               <g id="zone-head" class="cursor-pointer group" onclick="selectZone('head')">
-                <circle cx="120" cy="38" r="18" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="120" cy="34" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="92" cy="56" r="4" fill="#006284" class="zone-pin"/>
-                <circle cx="148" cy="56" r="4" fill="#006284" class="zone-pin"/>
-                <circle id="pulse-head" cx="120" cy="34" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="38" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="120" cy="34" r="5.5" fill="#006284" class="zone-pin head-pin transition-all duration-300"/>
+                <circle cx="92" cy="56" r="4" fill="#006284" class="zone-pin head-pin transition-all duration-300"/>
+                <circle cx="148" cy="56" r="4" fill="#006284" class="zone-pin head-pin transition-all duration-300"/>
               </g>
 
               <!-- 2. Neck -->
               <g id="zone-neck" class="cursor-pointer group" onclick="selectZone('neck')">
-                <circle cx="120" cy="110" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="98" cy="116" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="142" cy="116" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-neck" cx="120" cy="110" r="16" stroke="#D08C60" stroke-width="1.5" class="pulse-ring" opacity="0.8"/>
+                <circle cx="120" cy="110" r="24" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="98" cy="116" r="5.5" fill="#006284" class="zone-pin neck-pin transition-all duration-300"/>
+                <circle cx="142" cy="116" r="5.5" fill="#006284" class="zone-pin neck-pin transition-all duration-300"/>
               </g>
 
               <!-- 3. Wrist -->
               <g id="zone-wrist" class="cursor-pointer group" onclick="selectZone('wrist')">
-                <circle cx="53" cy="190" r="14" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="187" cy="190" r="14" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="53" cy="190" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="187" cy="190" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-wrist" cx="53" cy="190" r="12" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="53" cy="190" r="16" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="187" cy="190" r="16" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="53" cy="190" r="5" fill="#006284" class="zone-pin wrist-pin transition-all duration-300"/>
+                <circle cx="187" cy="190" r="5" fill="#006284" class="zone-pin wrist-pin transition-all duration-300"/>
               </g>
 
               <!-- 4. Upper Back -->
               <g id="zone-back" class="cursor-pointer group" onclick="selectZone('back')">
-                <circle cx="120" cy="142" r="18" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="106" cy="142" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="134" cy="142" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-back" cx="120" cy="142" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="142" r="20" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="106" cy="142" r="5" fill="#006284" class="zone-pin back-pin transition-all duration-300"/>
+                <circle cx="134" cy="142" r="5" fill="#006284" class="zone-pin back-pin transition-all duration-300"/>
               </g>
 
               <!-- 5. Lower Back -->
               <g id="zone-waist" class="cursor-pointer group" onclick="selectZone('waist')">
-                <circle cx="120" cy="172" r="19" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="104" cy="172" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="136" cy="172" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-waist" cx="120" cy="172" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="172" r="20" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="104" cy="172" r="5" fill="#006284" class="zone-pin waist-pin transition-all duration-300"/>
+                <circle cx="136" cy="172" r="5" fill="#006284" class="zone-pin waist-pin transition-all duration-300"/>
               </g>
 
               <!-- 6. Pelvis / Hips -->
               <g id="zone-hips" class="cursor-pointer group" onclick="selectZone('hips')">
-                <circle cx="120" cy="210" r="20" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="92" cy="210" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="148" cy="210" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-hips" cx="120" cy="210" r="15" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="210" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="92" cy="210" r="5" fill="#006284" class="zone-pin hips-pin transition-all duration-300"/>
+                <circle cx="148" cy="210" r="5" fill="#006284" class="zone-pin hips-pin transition-all duration-300"/>
               </g>
 
               <!-- 7. Knees & Legs -->
               <g id="zone-legs" class="cursor-pointer group" onclick="selectZone('legs')">
-                <circle cx="120" cy="265" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="86" cy="260" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="154" cy="260" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-legs" cx="120" cy="260" r="15" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="265" r="24" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="86" cy="260" r="5" fill="#006284" class="zone-pin legs-pin transition-all duration-300"/>
+                <circle cx="154" cy="260" r="5" fill="#006284" class="zone-pin legs-pin transition-all duration-300"/>
               </g>
 
               <!-- 8. Ankles & Feet -->
               <g id="zone-ankles" class="cursor-pointer group" onclick="selectZone('ankles')">
-                <circle cx="120" cy="300" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
-                <circle cx="77" cy="300" r="4.5" fill="#D08C60" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle cx="163" cy="300" r="4.5" fill="#D08C60" class="zone-pin transition-transform group-hover:scale-125"/>
-                <circle id="pulse-ankles" cx="120" cy="300" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+                <circle cx="120" cy="300" r="24" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-15 transition-all"/>
+                <circle cx="77" cy="300" r="4.5" fill="#006284" class="zone-pin ankles-pin transition-all duration-300"/>
+                <circle cx="163" cy="300" r="4.5" fill="#006284" class="zone-pin ankles-pin transition-all duration-300"/>
               </g>
             </svg>
           </div>
 
-          <!-- 8 Quick Selection Chips -->
+          <!-- 8 Quick Selection Chips (單一乾淨選項組，無重複) -->
           <div class="grid grid-cols-4 sm:grid-cols-4 gap-2 mt-2 pt-3 border-t border-muji-primary/10">
             <button onclick="selectZone('head')" id="pill-head" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">頭部·百會</button>
             <button onclick="selectZone('neck')" id="pill-neck" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-primary text-white">肩頸·肩井</button>
@@ -746,536 +747,7 @@
   <!-- ================= JAVASCRIPT APPLICATION CORE ================= -->
   <script>
     /* =====================================================================
-     * 1. 8-ZONE COMPREHENSIVE STRETCH & POSTURE DATA
-     * ===================================================================== */
-    const STRETCH_DATA = {
-      head: {
-        id: 'head',
-        name: '頭部與太陽穴',
-        point: '百會穴 · 太陽穴 · 風池穴',
-        shortNote: '用腦過度與螢幕藍光刺激導致頭皮筋膜緊繃，氣血淤滯引發偏頭脹痛。',
-        hazardTitle: '【地雷姿勢】緊咬牙關、皺眉瞇眼看螢幕',
-        hazardDesc: '顳顎關節持續收緊會帶動顳肌與枕下肌群痙攣，使頭部血液回流受阻，加重頭痛昏沉。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '舌尖輕抵上顎讓咬肌自然放鬆；每用眼30分鐘眺望6米外綠意，順時針按揉風池穴。',
-        tomorrowTarget: 'neck',
-        tomorrowReason: '中醫經絡頭項相連：今日疏通了頭部百會與風池，明日建議順延膀胱經與膽經伸展「肩頸部位」，防止上焦氣血再度鬱積。',
-        steps: [
-          {
-            name: '百會與頭皮筋膜十指梳理',
-            duration: 45,
-            animKey: 'head-comb',
-            focusArea: '頭頂百會穴與顳側膽經',
-            formula: '指腹如梳 · 由前向後 · 均勻呼吸',
-            tips: [
-              '• 雙手十指微屈如梳，指腹從前額髮際線開始。',
-              '• 緩慢向後梳理至後腦風池穴，帶點微酸脹感。',
-              '• 深長呼吸，梳理頭部緊繃微循環，平撫思緒。'
-            ]
-          },
-          {
-            name: '風池穴雙拇指指壓托引',
-            duration: 45,
-            animKey: 'head-lift',
-            focusArea: '後枕骨下風池穴與枕下肌群',
-            formula: '雙手托枕 · 拇指點揉 · 微仰牽引',
-            tips: [
-              '• 雙手十指扣於後腦，雙手拇指按揉枕骨兩側凹陷風池穴。',
-              '• 吸氣時頭部微仰，吐氣時拇指向上輕微托引。',
-              '• 緩解長時間注視螢幕造成的後腦悶脹。'
-            ]
-          },
-          {
-            name: '太陽穴緩慢螺旋繞揉放鬆',
-            duration: 45,
-            animKey: 'head-temple',
-            focusArea: '雙側太陽穴與眼眶周圍',
-            formula: '輕貼肌膚 · 順時繞環 · 眉心舒展',
-            tips: [
-              '• 食指與中指併攏，輕輕貼放於兩側太陽穴。',
-              '• 順時針緩慢畫圓打圈，力道溫和沉靜。',
-              '• 閉上雙眼，想像緊繃的眉心漸漸融化舒展。'
-            ]
-          }
-        ]
-      },
-      neck: {
-        id: 'neck',
-        name: '肩頸部位',
-        point: '肩井穴 · 大椎穴',
-        shortNote: '長時間低頭打字致使斜方肌過度拉長緊繃，牽連至頭部引發沈重感。',
-        hazardTitle: '【地雷姿勢】低頭滑手機（烏龜頸頸椎前伸）',
-        hazardDesc: '頭部每前傾15度，頸椎負載相當於增加5~10公斤，長期引發斜方肌肥厚僵硬與頸源性頭痛。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '使用電腦時將螢幕墊高至視線水平；每隔40分鐘做一次「收下巴」，讓耳垂垂直對齊肩峰。',
-        tomorrowTarget: 'back',
-        tomorrowReason: '根據人體力學拮抗肌原理：今日放鬆了前頸與斜方肌，明日建議伸展「上背與膏肓」打開胸椎，避免含胸再度拉扯頸椎。',
-        steps: [
-          {
-            name: '斜方肌側向牽引拉伸',
-            duration: 45,
-            animKey: 'neck-tilt',
-            focusArea: '單側上斜方肌與頸夾肌',
-            formula: '端坐 · 側傾 · 沉肩',
-            tips: [
-              '• 坐姿保持脊柱延展，右手放於頭部左耳上方。',
-              '• 吐氣時輕柔帶頭向右側肩膀傾斜，左肩膀主動下沉。',
-              '• 感受左側頸肩深層牽拉感，保持呼吸均勻45秒。'
-            ]
-          },
-          {
-            name: '45度斜向低頭拉伸提肩胛肌',
-            duration: 45,
-            animKey: 'neck-diag',
-            focusArea: '提肩胛肌與後背連結處',
-            formula: '轉角 · 低頭 · 垂臂',
-            tips: [
-              '• 頭部轉向右側45度，眼神望向右下方口袋方向。',
-              '• 右手搭在後腦勺，吐氣時輕輕將下巴引向下鎖骨。',
-              '• 感受後頸深處緊繃點被拉開，換邊重複。'
-            ]
-          },
-          {
-            name: '肩部沉降與大椎穴後縮循環',
-            duration: 45,
-            animKey: 'neck-roll',
-            focusArea: '大椎穴與雙側肩峰',
-            formula: '吸氣聳肩 · 吐氣畫圓下沉',
-            tips: [
-              '• 吸氣雙肩盡力靠近耳朵，感受短暫收緊。',
-              '• 吐氣時雙肩向後向下拉開，讓肩胛骨自然下沉歸位。',
-              '• 重複畫圓釋放肩井穴凝滯的氣血。'
-            ]
-          }
-        ]
-      },
-      wrist: {
-        id: 'wrist',
-        name: '手腕與前臂',
-        point: '內關穴 · 大陵穴 · 外關穴',
-        shortNote: '鍵盤打字與滑鼠點擊使腕管正中神經受壓，前臂屈肌群痙攣。',
-        hazardTitle: '【地雷姿勢】腕關節背屈壓在桌緣滑鼠手',
-        hazardDesc: '手腕長時間壓在硬桌邊會壓迫腕管內的屈肌腱與正中神經，導致手指麻木、腕關節活動度受限。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '使用柔軟滑鼠護腕墊支撐手根；鍵盤輸入時保持手腕平直，勿長時間向兩側偏折。',
-        tomorrowTarget: 'neck',
-        tomorrowReason: '上肢神經皆由頸椎神經根發出：今日伸展了末端手腕與前臂，明日推薦伸展「肩頸與斜角肌」，促進上肢神經通路整條暢通。',
-        steps: [
-          {
-            name: '前臂屈肌群掌心向上牽拉',
-            duration: 45,
-            animKey: 'wrist-flexor',
-            focusArea: '前臂腹側肌群與內關穴',
-            formula: '伸臂 · 勾指 · 後扳',
-            tips: [
-              '• 左手臂向前伸直，掌心朝前、指尖朝下。',
-              '• 右手握住左手四指，吐氣時輕輕向胸前扳動。',
-              '• 感受手腕內側與前臂深層拉伸，保持手肘微屈勿鎖死。'
-            ]
-          },
-          {
-            name: '手背朝前伸肌群反向拉伸',
-            duration: 45,
-            animKey: 'wrist-extensor',
-            focusArea: '前臂背側肌群與外關穴',
-            formula: '掌心朝內 · 屈腕 · 輕壓',
-            tips: [
-              '• 手臂向前伸直，手腕自然垂下，手背朝前。',
-              '• 另一手輕壓手背下方，吐氣時將指尖引向身體方向。',
-              '• 放鬆長時間使用滑鼠而緊繃的外關穴區域。'
-            ]
-          },
-          {
-            name: '腕關節八字波浪繞環',
-            duration: 45,
-            animKey: 'wrist-roll',
-            focusArea: '腕骨關節囊與大陵穴',
-            formula: '十指合扣 · 如水波流動',
-            tips: [
-              '• 十指交叉合握成拳，放鬆手腕。',
-              '• 順時針與逆時針緩慢畫「∞」字形波浪旋轉。',
-              '• 喚醒關節滑液分泌，消除腕關節卡卡異音。'
-            ]
-          }
-        ]
-      },
-      back: {
-        id: 'back',
-        name: '上背與膏肓',
-        point: '膏肓穴 · 大椎穴 · 督脈',
-        shortNote: '常言「病入膏肓」，實為肩胛骨內側菱形肌與胸椎僵硬引發的深層酸痛。',
-        hazardTitle: '【地雷姿勢】含胸駝背、窩在軟沙發打字',
-        hazardDesc: '背部肌肉長時間處於拉長被動狀態，導致肩胛骨內側筋膜缺血，胸椎旋轉與後伸活動度喪失。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '坐姿時在背後墊小靠枕；每小時做一次「抱胸展翅」擴胸呼吸，讓肩胛骨後夾收攏。',
-        tomorrowTarget: 'waist',
-        tomorrowReason: '根據脊椎力學序列傳導：今日釋放了上背胸椎與膏肓穴，明日建議往下伸展「腰部腰陽關」，完成整條督脈的放鬆循環。',
-        steps: [
-          {
-            name: '抱臂肩胛骨菱形肌延展',
-            duration: 45,
-            animKey: 'back-hug',
-            focusArea: '肩胛內側緣膏肓穴區域',
-            formula: '交叉抱肩 · 吸氣拱背 · 呼氣沉肩',
-            tips: [
-              '• 雙臂於胸前交叉，雙手抱住對側肩胛骨外側。',
-              '• 吸氣將氣送入後背，吐氣時低頭微拱背部成圓弧。',
-              '• 感受兩片肩胛骨被自然向外拉開的透氣感。'
-            ]
-          },
-          {
-            name: '椅背胸椎向後伸展展開',
-            duration: 45,
-            animKey: 'back-ext',
-            focusArea: '胸椎段與胸骨前側',
-            formula: '雙手托頸 · 倚靠椅背 · 胸口迎光',
-            tips: [
-              '• 坐於穩固椅上，雙手托住後頸給予保護。',
-              '• 吐氣時以椅背為支點，胸口緩慢向天花板打開展延。',
-              '• 擴展胸腔，解除心包經與督脈鬱結。'
-            ]
-          },
-          {
-            name: '貓牛式背脊波浪流動',
-            duration: 45,
-            animKey: 'back-catcow',
-            focusArea: '整條脊椎督脈與豎脊肌',
-            formula: '吸氣塌腰展胸 · 呼氣拱背收腹',
-            tips: [
-              '• 雙手扶膝或扶桌，吸氣時抬頭展開鎖骨與胸口。',
-              '• 吐氣時由尾骨引導，一節節將背部拱起低頭。',
-              '• 像貓咪伸懶腰般流動，釋放背部壓力。'
-            ]
-          }
-        ]
-      },
-      waist: {
-        id: 'waist',
-        name: '腰部腰陽關',
-        point: '腰陽關 · 腎俞穴 · 命門',
-        shortNote: '腰為腎之府。長期久坐使腰椎間盤承受高剪力，豎脊肌持續痙攣。',
-        hazardTitle: '【地雷姿勢】翹二郎腿、半躺半靠床頭滑平板',
-        hazardDesc: '骨盆單側旋轉引發腰方肌張力失衡；腰椎弧度消失，椎間盤承受站姿2倍以上的剪切壓力。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '戒除翹腳習慣，雙腳踩實地面；在第3至第5腰椎處放置直徑約10公分的支撐腰靠。',
-        tomorrowTarget: 'hips',
-        tomorrowReason: '腰髖力學密不可分（腰骨盆節律）：今日完成了腰部減壓，明日建議針對「骨盆與髖部」進行伸展，釋放骨盆對腰椎的拉扯力。',
-        steps: [
-          {
-            name: '坐姿軀幹溫和螺旋旋轉',
-            duration: 45,
-            animKey: 'waist-twist',
-            focusArea: '腰方肌與胸腰筋膜',
-            formula: '立脊向上 · 轉向椅背 · 腹部深呼吸',
-            tips: [
-              '• 坐端正雙腳平貼地面，右手置於左膝外側。',
-              '• 吸氣向上延展頭頂，吐氣時帶動胸腹緩慢轉向左後方。',
-              '• 感受後腰腎俞穴處的深層溫熱扭轉。'
-            ]
-          },
-          {
-            name: '俯臥或跪姿嬰兒式腰椎牽引',
-            duration: 45,
-            animKey: 'waist-child',
-            focusArea: '下背豎脊肌與腰陽關',
-            formula: '臀坐腳跟 · 指尖前爬 · 額頭放鬆',
-            tips: [
-              '• 跪姿雙膝微開，臀部坐回腳跟，雙臂向前伸展。',
-              '• 前額輕點桌面或地墊，胸腹放鬆下沉。',
-              '• 將呼吸深入下背部命門與腰陽關，拉長腰椎間隙。'
-            ]
-          },
-          {
-            name: '站姿側屈腰方肌深層拉伸',
-            duration: 45,
-            animKey: 'waist-side',
-            focusArea: '側腰腰方肌與膽經',
-            formula: '舉臂上指 · 骨盆微推 · 側向延展',
-            tips: [
-              '• 站姿雙腳與肩同寬，右手臂向上高舉。',
-              '• 吐氣時身體向左側彎曲，骨盆微微向右推。',
-              '• 感受右側腰腹間隙被一節節拉開。'
-            ]
-          }
-        ]
-      },
-      hips: {
-        id: 'hips',
-        name: '骨盆與髖部',
-        point: '環跳穴 · 居髎穴 · 梨狀肌',
-        shortNote: '髖關節周圍肌群緊縮，常引發坐骨神經刺激與骨盆前傾假翹臀。',
-        hazardTitle: '【地雷姿勢】坐姿向前滑坐（葛優躺）',
-        hazardDesc: '骨盆後傾壓迫薦椎與坐骨神經通道，梨狀肌長期水腫肥厚引發下肢放射性酸脹麻。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '坐姿時確認坐骨正對椅面；每坐45分鐘務必起身原地活動髖關節1分鐘。',
-        tomorrowTarget: 'legs',
-        tomorrowReason: '下肢動力鏈承上啟下：今日打開了深層臀肌與環跳穴，明日推薦伸展「膝蓋腿部（委中穴）」，使氣血沿足太陽膀胱經順暢下行。',
-        steps: [
-          {
-            name: '坐姿數字4字梨狀肌釋放',
-            duration: 45,
-            animKey: 'hip-figure4',
-            focusArea: '臀大肌深層梨狀肌與環跳穴',
-            formula: '腳踝擱膝 · 背脊打直 · 以髖前折',
-            tips: [
-              '• 端坐椅上，將右腳腳踝橫放於左膝上方呈「4」字。',
-              '• 保持背部平直，吐氣時以髖部為折疊點緩慢向前俯身。',
-              '• 感受右臀深處環跳穴酸脹釋放，維持均勻呼吸。'
-            ]
-          },
-          {
-            name: '低弓箭步髂腰肌前側延展',
-            duration: 45,
-            animKey: 'hip-lunge',
-            focusArea: '前髖髂腰肌與腹股溝',
-            formula: '前屈後展 · 骨盆下沉 · 脊柱拔高',
-            tips: [
-              '• 前腳屈膝踩地，後腿膝蓋著地向後延展。',
-              '• 雙手扶於前膝，骨盆向下向前輕推打開腹股溝。',
-              '• 感受緊繃的髂腰肌被充分拉長，緩解骨盆前傾。'
-            ]
-          },
-          {
-            name: '坐姿開胯蝴蝶式骨盆調和',
-            duration: 45,
-            animKey: 'hip-butterfly',
-            focusArea: '大腿內側內收肌群與會陰',
-            formula: '腳掌合十 · 膝蓋沈降 · 輕微微振',
-            tips: [
-              '• 坐姿雙腳腳掌合十併攏，雙手輕握腳尖。',
-              '• 膝蓋自然向兩側沉降，像蝴蝶翅膀般輕微震動。',
-              '• 促進骨盆腔血液循環與髖關節柔韌度。'
-            ]
-          }
-        ]
-      },
-      legs: {
-        id: 'legs',
-        name: '腿部與膝部',
-        point: '委中穴 · 足三里 · 承山穴',
-        shortNote: '「腰背委中求」。大腿後側膕繩肌與小腿緊繃常回傳造成全身筋膜鏈僵硬。',
-        hazardTitle: '【地雷姿勢】雙腿交叉盤坐、久坐膝關節深屈',
-        hazardDesc: '膝關節長時間屈曲超過90度會阻礙膕窩血管回流，使委中穴氣血受阻，誘發小腿抽筋水腫。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '坐姿時適度向前伸腿放鬆膝關節；睡前可抬高小腿10分鐘幫助靜脈回流。',
-        tomorrowTarget: 'ankles',
-        tomorrowReason: '下肢足底末梢循環：今日梳理了小腿後側與委中穴，明日推薦伸展「腳踝太谿與崑崙穴」，達到足底筋膜的終極放鬆。',
-        steps: [
-          {
-            name: '坐姿前屈大腿後側膕繩肌拉伸',
-            duration: 45,
-            animKey: 'leg-hamstring',
-            focusArea: '膕繩肌群與膕窩委中穴',
-            formula: '伸腿勾腳 · 背平前傾 · 指探腳尖',
-            tips: [
-              '• 坐於椅緣，右腿向前伸直腳跟著地，腳尖回勾。',
-              '• 背部打直，雙手沿大腿輕柔前推探向腳踝。',
-              '• 感受膝後窩委中穴附近的深層延展。'
-            ]
-          },
-          {
-            name: '扶牆弓步小腿腓腸肌深展',
-            duration: 45,
-            animKey: 'leg-calf',
-            focusArea: '小腿肚腓腸肌與承山穴',
-            formula: '後腳踩實 · 腳尖朝前 · 重心前移',
-            tips: [
-              '• 雙手扶牆，後腿向後邁大步且腳後跟牢牢踩地。',
-              '• 前腿彎曲重心前移，後腿保持完全伸直。',
-              '• 感受小腿肚承山穴區域拉長發熱。'
-            ]
-          },
-          {
-            name: '足三里與小腿前側輕按喚醒',
-            duration: 45,
-            animKey: 'leg-shin',
-            focusArea: '脛骨前肌與足三里穴',
-            formula: '外膝四指 · 大指點揉 · 提足背',
-            tips: [
-              '• 坐姿屈膝，於外膝眼下方約四橫指處找到足三里。',
-              '• 配合腳踝上勾與下壓，大拇指給予適度點揉酸脹感。',
-              '• 調和脾胃與下肢氣血活力。'
-            ]
-          }
-        ]
-      },
-      ankles: {
-        id: 'ankles',
-        name: '腳踝與足底',
-        point: '太谿穴 · 崑崙穴 · 湧泉穴',
-        shortNote: '足為人之根。腳踝活動度不足會向上影響膝蓋與髖關節力學排列。',
-        hazardTitle: '【地雷姿勢】穿不合腳硬鞋久站、內八外八走路',
-        hazardDesc: '足弓塌陷或腳踝僵直使衝擊力無法被足底筋膜吸收，直衝膝關節與腰椎。',
-        preventionTitle: '【日常防痛錦囊】',
-        preventionDesc: '踩網球滾動腳底湧泉穴；日常走路時專注腳跟先著地、腳趾蹬地的平穩步態。',
-        tomorrowTarget: 'head',
-        tomorrowReason: '中醫「上病下治，下病上治」：今日調理了足底與太谿穴，明日推薦回歸「頭部百會穴」做全身經絡圓滿巡迴。',
-        steps: [
-          {
-            name: '腳踝內外踝太谿崑崙環繞',
-            duration: 45,
-            animKey: 'ankle-circle',
-            focusArea: '踝關節囊、內側太谿與外側崑崙',
-            formula: '懸空順轉 · 畫大圓弧 · 逆轉舒筋',
-            tips: [
-              '• 單腿屈膝懸空，腳踝最大幅度順時針慢速畫圈。',
-              '• 再逆時針旋轉，充分活動內外腳踝關節囊。',
-              '• 促進足部血液與淋巴循環。'
-            ]
-          },
-          {
-            name: '腳趾抓毛巾與湧泉穴張合',
-            duration: 45,
-            animKey: 'ankle-spread',
-            focusArea: '足底筋膜與湧泉穴',
-            formula: '五趾抓拳 · 用力張開 · 踩地踏實',
-            tips: [
-              '• 坐姿將腳趾全力收緊如握拳5秒。',
-              '• 隨後將五根腳趾大幅度張開，刺激湧泉穴。',
-              '• 活絡足底微細肌群，預防足底筋膜炎。'
-            ]
-          },
-          {
-            name: '腳後跟阿基里斯腱跟腱牽拉',
-            duration: 45,
-            animKey: 'ankle-achilles',
-            focusArea: '跟腱、比目魚肌與太谿穴',
-            formula: '腳跟著地 · 前掌踏台 · 身體微前壓',
-            tips: [
-              '• 利用門檻或瑜伽磚，前腳掌踏於高處，腳跟著地。',
-              '• 身體重心平穩前移，感受腳後跟腱與深層小腿拉伸。',
-              '• 保持平穩呼吸，換腳重複。'
-            ]
-          }
-        ]
-      }
-    };
-
-    /* =====================================================================
-     * 2. COLLECTIBLE CHIBI STICKERS (6 Total)
-     * ===================================================================== */
-    const CHIBI_STICKERS = [
-      {
-        id: 'stk_1',
-        name: '扎針放鬆小銅人',
-        desc: '頭頂銀針微風擺動，一念放下百憂解。',
-        unlocked: true,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="60" cy="18" r="9" fill="#006284"/>
-            <line x1="50" y1="16" x2="70" y2="20" stroke="#D08C60" stroke-width="2.5"/>
-            <circle cx="60" cy="56" r="30" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <line x1="42" y1="36" x2="34" y2="24" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="33" cy="22" r="2" fill="#D08C60"/>
-            <line x1="78" y1="36" x2="86" y2="24" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="87" cy="22" r="2" fill="#D08C60"/>
-            <path d="M46 56 Q52 50 56 56" stroke="#006284" stroke-width="2" fill="none"/>
-            <path d="M64 56 Q68 50 74 56" stroke="#006284" stroke-width="2" fill="none"/>
-            <circle cx="42" cy="62" r="3.5" fill="#D08C60" opacity="0.4"/>
-            <circle cx="78" cy="62" r="3.5" fill="#D08C60" opacity="0.4"/>
-            <path d="M57 66 Q60 70 63 66" stroke="#006284" stroke-width="2" fill="none"/>
-            <path d="M38 86 Q60 80 82 86 L86 100 Q60 106 34 100 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
-            <circle cx="60" cy="90" r="2" fill="#D08C60"/>
-          </svg>
-        `
-      },
-      {
-        id: 'stk_2',
-        name: '抱艾條小溫童',
-        desc: '懷抱溫陽小艾草，溫暖下焦與小腹寒氣。',
-        unlocked: false,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="60" cy="50" r="26" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <path d="M48 50 Q53 45 56 50" stroke="#006284" stroke-width="2" fill="none"/>
-            <path d="M64 50 Q67 45 72 50" stroke="#006284" stroke-width="2" fill="none"/>
-            <circle cx="45" cy="56" r="3" fill="#D08C60" opacity="0.4"/>
-            <circle cx="75" cy="56" r="3" fill="#D08C60" opacity="0.4"/>
-            <rect x="38" y="70" width="44" height="15" rx="7.5" fill="#D8CFBE" stroke="#006284" stroke-width="2" transform="rotate(-15 60 77)"/>
-            <circle cx="34" cy="74" r="5" fill="#D08C60"/>
-            <path d="M28 72 Q22 62 26 54 Q30 46 25 38" stroke="#D08C60" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75"/>
-          </svg>
-        `
-      },
-      {
-        id: 'stk_3',
-        name: '刮痧板元氣童',
-        desc: '手持水牛角刮痧板，出痧一身輕。',
-        unlocked: false,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="56" cy="52" r="26" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <path d="M78 50 C88 40 98 52 86 70 C76 82 72 72 74 62 Z" fill="#006284" stroke="#006284" stroke-width="1.5"/>
-            <circle cx="82" cy="56" r="2.5" fill="#D08C60"/>
-            <circle cx="48" cy="52" r="2" fill="#006284"/>
-            <circle cx="62" cy="52" r="2" fill="#006284"/>
-            <path d="M53 60 Q56 64 59 60" stroke="#006284" stroke-width="2" fill="none"/>
-          </svg>
-        `
-      },
-      {
-        id: 'stk_4',
-        name: '奉茶保溫杯小道',
-        desc: '多喝溫水與枸杞紅棗茶，津液充盈不枯燥。',
-        unlocked: false,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="60" cy="46" r="25" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <circle cx="52" cy="46" r="2" fill="#006284"/>
-            <circle cx="68" cy="46" r="2" fill="#006284"/>
-            <rect x="50" y="68" width="20" height="30" rx="6" fill="#D08C60" stroke="#006284" stroke-width="2"/>
-            <line x1="50" y1="76" x2="70" y2="76" stroke="#FFFFFF" stroke-width="1.5"/>
-            <path d="M58 64 Q60 58 58 54" stroke="#7A8084" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M63 64 Q65 58 63 54" stroke="#7A8084" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          </svg>
-        `
-      },
-      {
-        id: 'stk_5',
-        name: '劈腿大師靈動童',
-        desc: '筋長一寸，壽延十年；拉開大腿內側肝脾腎三經。',
-        unlocked: false,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="60" cy="40" r="20" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <circle cx="54" cy="40" r="2" fill="#006284"/>
-            <circle cx="66" cy="40" r="2" fill="#006284"/>
-            <path d="M58 46 Q60 50 62 46" stroke="#006284" stroke-width="2" fill="none"/>
-            <path d="M22 84 L98 84" stroke="#006284" stroke-width="8" stroke-linecap="round"/>
-            <circle cx="22" cy="84" r="5" fill="#D08C60"/>
-            <circle cx="98" cy="84" r="5" fill="#D08C60"/>
-            <path d="M50 58 L70 58 L64 82 L56 82 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
-          </svg>
-        `
-      },
-      {
-        id: 'stk_6',
-        name: '太極行雲小尊者',
-        desc: '陰陽和合，以意領氣，全身經絡大周天運行。',
-        unlocked: false,
-        svg: `
-          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
-            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
-            <circle cx="60" cy="48" r="24" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-            <circle cx="60" cy="20" r="6" fill="#006284"/>
-            <circle cx="60" cy="20" r="2" fill="#FFFFFF"/>
-            <line x1="50" y1="48" x2="56" y2="48" stroke="#006284" stroke-width="2" stroke-linecap="round"/>
-            <line x1="64" y1="48" x2="70" y2="48" stroke="#006284" stroke-width="2" stroke-linecap="round"/>
-            <path d="M34 66 Q60 52 86 66" stroke="#006284" stroke-width="4" stroke-linecap="round" fill="none"/>
-            <circle cx="34" cy="66" r="4" fill="#D08C60"/>
-            <circle cx="86" cy="66" r="4" fill="#D08C60"/>
-          </svg>
-        `
-      }
-    ];
-
-    /* =====================================================================
-     * 3. STATE & LOCAL STORAGE
+     * 1. APP STATE & LOCAL STORAGE PERSISTENCE
      * ===================================================================== */
     let currentZone = 'neck';
     let currentStepIndex = 0;
@@ -1283,321 +755,964 @@
     let timeLeft = 45;
     let timerInterval = null;
     let isRunning = false;
-    let isSoundOn = true;
+    let soundEnabled = true;
+
     let streakCount = 1;
     let totalMinutes = 15;
     let checkInDone = false;
     let workoutLogs = [];
 
+    const STORAGE_KEY = 'suhada_stretch_app_v2';
+
     function loadStorage() {
       try {
-        const savedStickers = localStorage.getItem('muji_stickers_v2');
-        if (savedStickers) {
-          const unlockedIds = JSON.parse(savedStickers);
-          CHIBI_STICKERS.forEach(stk => {
-            if (unlockedIds.includes(stk.id)) stk.unlocked = true;
-          });
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const data = JSON.parse(raw);
+          streakCount = data.streakCount || 1;
+          totalMinutes = data.totalMinutes || 15;
+          checkInDone = !!data.checkInDone;
+          workoutLogs = Array.isArray(data.workoutLogs) ? data.workoutLogs : [];
+          if (Array.isArray(data.stickersUnlocked)) {
+            CHIBI_STICKERS.forEach((stk, idx) => {
+              stk.unlocked = !!data.stickersUnlocked[idx];
+            });
+          }
         }
-        
-        const savedStreak = localStorage.getItem('muji_streak_v2');
-        if (savedStreak) streakCount = parseInt(savedStreak, 10);
-        
-        const savedMins = localStorage.getItem('muji_mins_v2');
-        if (savedMins) totalMinutes = parseInt(savedMins, 10);
-
-        const savedLogs = localStorage.getItem('muji_workout_logs_v2');
-        if (savedLogs) {
-          workoutLogs = JSON.parse(savedLogs);
-        } else {
-          // Default initial friendly sample log
-          workoutLogs = [
-            {
-              dateStr: '2026/11/05 08:30',
-              zoneName: '肩頸部位（肩井穴）',
-              zoneKey: 'neck',
-              duration: 15,
-              note: '頸椎活動度改善，酸脹感消散大半。'
-            }
-          ];
-        }
-
-        const todayKey = 'muji_checkin_' + new Date().toDateString();
-        if (localStorage.getItem(todayKey)) checkInDone = true;
       } catch (e) {
-        console.warn('Storage read error:', e);
+        console.warn('LocalStorage load error', e);
       }
     }
 
     function saveStorage() {
       try {
-        const unlockedIds = CHIBI_STICKERS.filter(s => s.unlocked).map(s => s.id);
-        localStorage.setItem('muji_stickers_v2', JSON.stringify(unlockedIds));
-        localStorage.setItem('muji_streak_v2', streakCount);
-        localStorage.setItem('muji_mins_v2', totalMinutes);
-        localStorage.setItem('muji_workout_logs_v2', JSON.stringify(workoutLogs));
-        if (checkInDone) {
-          localStorage.setItem('muji_checkin_' + new Date().toDateString(), 'true');
-        }
+        const payload = {
+          streakCount,
+          totalMinutes,
+          checkInDone,
+          workoutLogs,
+          stickersUnlocked: CHIBI_STICKERS.map(s => s.unlocked)
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       } catch (e) {
-        console.warn('Storage save error:', e);
+        console.warn('LocalStorage save error', e);
       }
     }
 
     /* =====================================================================
-     * 4. WEB AUDIO SOUND EFFECTS
+     * 2. WEB AUDIO API SYNTHESIZER (ZEN BELL & CHIME)
      * ===================================================================== */
     let audioCtx = null;
-    function playZenTone(type = 'chime') {
-      if (!isSoundOn) return;
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
 
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playZenTone(type = 'chime') {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        const now = audioCtx.currentTime;
 
         if (type === 'chime') {
+          // 清脆磬鐘 (High singing bowl)
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(528, now);
-          osc.frequency.exponentialRampToValueAtTime(520, now + 1.2);
-          gain.gain.setValueAtTime(0.25, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.4);
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(440, now + 1.2);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
           osc.start(now);
-          osc.stop(now + 1.4);
+          osc.stop(now + 1.2);
         } else if (type === 'wood') {
+          // 溫潤木魚點擊 (Soft wooden block)
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(400, now);
-          osc.frequency.exponentialRampToValueAtTime(150, now + 0.12);
-          gain.gain.setValueAtTime(0.35, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          osc.frequency.setValueAtTime(420, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.15);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
           osc.start(now);
-          osc.stop(now + 0.14);
+          osc.stop(now + 0.15);
         } else if (type === 'success') {
-          [528, 660, 792].forEach((freq, idx) => {
-            const subOsc = audioCtx.createOscillator();
-            const subGain = audioCtx.createGain();
-            subOsc.connect(subGain);
-            subGain.connect(audioCtx.destination);
-            subOsc.type = 'sine';
-            subOsc.frequency.setValueAtTime(freq, now + idx * 0.16);
-            subGain.gain.setValueAtTime(0.2, now + idx * 0.16);
-            subGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.16 + 1.6);
-            subOsc.start(now + idx * 0.16);
-            subOsc.stop(now + idx * 0.16 + 1.6);
+          // 圓滿祝賀和弦
+          const freqs = [523.25, 659.25, 783.99, 1046.50];
+          freqs.forEach((f, i) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(f, now + i * 0.08);
+            g.gain.setValueAtTime(0.15, now + i * 0.08);
+            g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 1.4);
+            o.start(now + i * 0.08);
+            o.stop(now + i * 0.08 + 1.4);
           });
         }
-      } catch (e) {}
+      } catch (err) {
+        console.warn('Audio play failed', err);
+      }
     }
 
     function toggleSound() {
-      isSoundOn = !isSoundOn;
-      const icon = document.getElementById('soundIcon');
+      soundEnabled = !soundEnabled;
       const label = document.getElementById('soundLabel');
-      if (isSoundOn) {
-        icon.setAttribute('data-lucide', 'volume-2');
+      const icon = document.getElementById('soundIcon');
+      if (soundEnabled) {
         label.innerText = '罄鐘音效: 開';
+        icon.setAttribute('data-lucide', 'volume-2');
         playZenTone('wood');
       } else {
-        icon.setAttribute('data-lucide', 'volume-x');
         label.innerText = '罄鐘音效: 關';
+        icon.setAttribute('data-lucide', 'volume-x');
       }
       lucide.createIcons();
     }
 
     /* =====================================================================
-     * 5. HIGH-CLARITY CONCRETE ANATOMICAL DEMONSTRATION SVGS
+     * 3. DATA REPOSITORY: 8 ZONES, MOVEMENTS & POSTURE HAZARDS
+     * ===================================================================== */
+    const STRETCH_DATA = {
+      head: {
+        name: '頭部舒壓',
+        point: '百會 · 太陽穴巡禮',
+        shortNote: '長時間視線聚焦螢幕，顳肌與枕後肌群持續痙攣引發緊箍頭痛。溫和導引清神醒腦。',
+        tomorrowTarget: 'neck',
+        tomorrowReason: '頭頸一體，今日安撫了頭面顱頂神經筋膜，明日應接續調理「肩頸肩井穴」，從根源疏導直通頭頂的膀胱經與膽經。',
+        hazardTitle: '【什麼姿勢容易讓頭部脹痛？】',
+        hazardDesc: '「下巴前突、視線仰視螢幕」會嚴重擠壓枕下肌群與椎動脈，阻礙顱內血液循環，伴隨眩暈與前額沉重。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '每用眼40分鐘，閉目用雙手拇指輕揉太陽穴30秒，並向遠處眺望；將螢幕高度降至視線下方15度。',
+        steps: [
+          {
+            name: '十指梳頭與百會輕叩',
+            duration: 45,
+            focusArea: '百會穴與顱頂腱膜',
+            formula: '指腹 · 輕叩 · 慢梳',
+            animKey: 'default',
+            tips: [
+              '1. 雙手十指微屈如梳，從前額髮際線緩慢向後梳理至後頸風池穴。',
+              '2. 指腹以溫潤節奏輕叩百會穴（頭頂正中），伴隨鼻吸口呼。',
+              '3. 動作重複 12 次，感受頭皮微熱、緊繃消退。'
+            ]
+          },
+          {
+            name: '太陽穴與顳肌順逆推展',
+            duration: 60,
+            focusArea: '雙側太陽穴與顳側肌群',
+            formula: '定點 · 畫圓 · 舒壓',
+            animKey: 'default',
+            tips: [
+              '1. 雙手中指與無名指指腹貼於太陽穴，輕柔畫小圓圈。',
+              '2. 先順時針旋轉 6 圈，再逆時針慢轉 6 圈。',
+              '3. 力道如撫琴般溫柔，不可用力猛壓。'
+            ]
+          },
+          {
+            name: '眼周與晴明穴周邊溫熱放鬆',
+            duration: 45,
+            focusArea: '眼周輪匝肌與鼻樑兩側',
+            formula: '搓掌 · 溫熨 · 靜息',
+            animKey: 'default',
+            tips: [
+              '1. 雙手手掌快速搓熱，掌心微凹形成空杯覆蓋雙眼。',
+              '2. 感受手心溫熱蒸騰眼部，配合緩慢腹式呼吸。',
+              '3. 緩慢張開雙眼，眨眼三次調節光線。'
+            ]
+          }
+        ]
+      },
+      neck: {
+        name: '肩頸釋壓',
+        point: '肩井 · 大椎穴巡禮',
+        shortNote: '久坐螢幕前造成氣血凝滯，斜方肌緊繃牽拉引發後頸僵硬。透過3步驟溫柔伸展，打通經絡。',
+        tomorrowTarget: 'back',
+        tomorrowReason: '根據筋膜動力鏈原理：今日釋放了上斜方肌，明日應接續調理「上背與膏肓」，延展菱形肌，鞏固開肩成果。',
+        hazardTitle: '【什麼姿勢容易讓肩頸痠痛？】',
+        hazardDesc: '低頭滑手機每低15度，頸椎負擔高達12公斤以上；「烏龜頸前伸」使斜方肌持續離心受力痙攣。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '螢幕墊高至視線水平；工作每45分鐘做「收下巴雙下巴法」，使耳垂與肩峰垂直對齊。',
+        steps: [
+          {
+            name: '斜方肌側向牽引拉伸',
+            duration: 45,
+            focusArea: '側頸斜方肌與胸鎖乳突肌',
+            formula: '立脊 · 側傾 · 沉肩',
+            animKey: 'neck-tilt',
+            tips: [
+              '1. 坐姿端正立脊，右手越過頭頂輕觸左耳上方。',
+              '2. 吐氣時頭部溫和向右側傾，左肩主動下沉遠離耳朵。',
+              '3. 感受左側頸部細長溫和的拉伸感，維持平穩呼吸。'
+            ]
+          },
+          {
+            name: '45度提肩胛肌對角拉伸',
+            duration: 45,
+            focusArea: '後頸深層提肩胛肌',
+            formula: '轉向 · 垂首 · 凝視',
+            animKey: 'neck-diag',
+            tips: [
+              '1. 頭部向右轉動45度，視線自然看向右側腋下或口袋。',
+              '2. 右手搭於後腦勺，吐氣時輕輕將頭部向前下方帶引。',
+              '3. 鎖定後頸連線至肩胛骨內上角的深層筋膜延展。'
+            ]
+          },
+          {
+            name: '雙肩和緩大圓環繞',
+            duration: 45,
+            focusArea: '肩井穴周邊肌肉群',
+            formula: '聳提 · 展胸 · 沉落',
+            animKey: 'neck-roll',
+            tips: [
+              '1. 雙手自然下垂，吸氣時雙肩向上高高提起靠近雙耳。',
+              '2. 吐氣時由前向後大幅度展開胸廓、肩胛骨相互靠攏後緩慢下沉。',
+              '3. 順時針與逆時針各完成 8 次深沉循環。'
+            ]
+          }
+        ]
+      },
+      wrist: {
+        name: '手腕解鎖',
+        point: '內關 · 大陵穴巡禮',
+        shortNote: '頻繁滑動滑鼠與敲擊鍵盤，腕管屈肌腱鞘充血腫脹。透過筋膜反向牽引，釋放腕管壓力。',
+        tomorrowTarget: 'neck',
+        tomorrowReason: '手臂神經源自頸椎神經根，今日疏通了手腕屈肌腱，明日建議向上追溯調和「頸椎與肩井穴」，確保整條神經滑動通暢。',
+        hazardTitle: '【什麼姿勢容易造成滑鼠手？】',
+        hazardDesc: '手腕懸空或過度背屈使用滑鼠，正中神經在腕管內長期受壓，易引發麻木、夜間刺痛與握力下降。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '使用人體工學滑鼠或加裝柔軟腕墊，打字時手腕保持平直中立位，避免用手掌托腮施力。',
+        steps: [
+          {
+            name: '腕管前臂屈肌反向牽引',
+            duration: 45,
+            focusArea: '前臂內側屈肌群與內關穴',
+            formula: '推掌 · 伸臂 · 回勾',
+            animKey: 'wrist-flexor',
+            tips: [
+              '1. 手臂向前平舉伸直，掌心朝前、指尖朝上如推牆狀。',
+              '2. 另一手輕輕扳住四指指尖，向身體方向柔和回拉。',
+              '3. 保持手肘微屈不卡死，感受前臂內側長條肌腱伸展。'
+            ]
+          },
+          {
+            name: '手背伸肌群弧形舒緩',
+            duration: 45,
+            focusArea: '前臂外側伸肌群',
+            formula: '垂腕 · 輕壓 · 展背',
+            animKey: 'wrist-extensor',
+            tips: [
+              '1. 手臂伸直，掌心朝內，手腕自然垂下、指尖指向地面。',
+              '2. 另一手輕握手背外側，輕柔向身體推壓加深彎曲。',
+              '3. 配合吸氣延展前臂外側，吐氣放鬆腕骨關節。'
+            ]
+          },
+          {
+            name: '十指合扣八字波浪旋轉',
+            duration: 45,
+            focusArea: '腕骨間韌帶與滑液囊',
+            formula: '相扣 · 波浪 · 慢旋',
+            animKey: 'wrist-roll',
+            tips: [
+              '1. 雙手十指緊密合扣，手肘微提與胸同高。',
+              '2. 以手腕為軸心，流暢劃出水平的「∞」無極波浪軌跡。',
+              '3. 順向與逆向各進行 15 次，使腕關節充盈溫潤滑液。'
+            ]
+          }
+        ]
+      },
+      back: {
+        name: '上背開闊',
+        point: '膏肓 · 厥陰俞巡禮',
+        shortNote: '長期圓肩駝背導致菱形肌過度拉長無力、膏肓穴氣血瘀堵。開肩展胸重塑挺拔體態。',
+        tomorrowTarget: 'waist',
+        tomorrowReason: '胸椎與腰椎是連貫承重的脊柱支柱。今日釋放了上背膏肓與胸廓，明日接續保養「腰部腎俞」，打通上下軀幹能量。',
+        hazardTitle: '【什麼姿勢容易造成膏肓刺痛？】',
+        hazardDesc: '含胸駝背、窩在沙發裡滑手機，使肩胛內側的膏肓穴深層菱形肌長期缺血纖維化，產生頑固酸脹點。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '坐姿保持「坐骨著力、收腹立腰」；每小時起身做「W-Y字夾背」，喚醒中下斜方肌。',
+        steps: [
+          {
+            name: '雙臂自抱拉開膏肓穴',
+            duration: 45,
+            focusArea: '兩肩胛骨內側膏肓穴區',
+            formula: '環抱 · 拱背 · 吐氣',
+            animKey: 'back-hug',
+            tips: [
+              '1. 雙臂胸前交叉緊抱兩側肩胛骨，手指盡可能向後抓握。',
+              '2. 吐氣時下巴微收，低頭含胸緩慢拱起上背部。',
+              '3. 專注將氣息吸入兩肩胛骨之間，感受背部肌肉如翅膀張開。'
+            ]
+          },
+          {
+            name: '胸椎後伸椅背開展式',
+            duration: 50,
+            focusArea: '胸椎中段與胸小肌',
+            formula: '托枕 · 靠倚 · 展胸',
+            animKey: 'back-ext',
+            tips: [
+              '1. 坐於穩固椅上，雙手十指交扣托住後腦勺保護頸椎。',
+              '2. 上背倚靠椅背上緣作為支點，吸氣時手肘向外打開、胸口朝天花板延展。',
+              '3. 避免過度彎腰，保持腰椎放鬆，純粹延展胸椎。'
+            ]
+          },
+          {
+            name: '和漢貓牛式胸背波浪動態',
+            duration: 50,
+            focusArea: '整條胸腰椎骨關節與豎脊肌',
+            formula: '吸氣昂首 · 吐氣拱脊',
+            animKey: 'back-catcow',
+            tips: [
+              '1. 雙手扶於膝蓋或桌面，吸氣時胸口向前推出、微抬頭延展喉部。',
+              '2. 吐氣時收腹低頭，自尾椎至頸椎一節節向上拱圓。',
+              '3. 如波浪般連綿起伏，帶動督脈經氣流動。'
+            ]
+          }
+        ]
+      },
+      waist: {
+        name: '腰部舒緩',
+        point: '腎俞 · 腰陽關巡禮',
+        shortNote: '久坐腰肌勞損、腰椎前凸角度變形。透過溫和減壓釋放腰陽關與腰方肌張力。',
+        tomorrowTarget: 'hips',
+        tomorrowReason: '腰臀筋膜同屬一系。骨盆歪斜往往是腰痛的元凶，今日放鬆了腰部，明日強烈推薦深層拉伸「骨盆與環跳穴」。',
+        hazardTitle: '【什麼姿勢容易讓腰部酸痛難耐？】',
+        hazardDesc: '半躺半坐「葛優躺」、翹二郎腿會讓骨盆嚴重後傾，腰椎承受比站立高出2倍以上的剪切應力。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '椅背放置腰靠支撐腰椎天然生理前曲；每坐30分鐘起身站立走動接杯熱水。',
+        steps: [
+          {
+            name: '坐姿脊柱螺旋溫柔扭轉',
+            duration: 45,
+            focusArea: '腰方肌與腹斜肌群',
+            formula: '立脊 · 沉氣 · 旋腰',
+            animKey: 'waist-twist',
+            tips: [
+              '1. 雙腳掌踏實地面，右手扶左膝外側，左手輕搭椅背。',
+              '2. 吸氣時拔高脊柱，吐氣時以肚臍為軸心緩慢向左側後方扭轉。',
+              '3. 兩側臀部坐骨穩固受力，勿傾斜離地。'
+            ]
+          },
+          {
+            name: '側向風吹樹式腰肋牽引',
+            duration: 45,
+            focusArea: '單側腰肌與肋間肌',
+            formula: '高舉 · 側屈 · 延展',
+            animKey: 'waist-side',
+            tips: [
+              '1. 左手臂伸直向天花板舉高，右手順勢下垂貼於大腿外側。',
+              '2. 吐氣時上半身向右側彎曲，左手指向右上方遠端延伸。',
+              '3. 感受左側腰側如折扇般被層層拉開。'
+            ]
+          },
+          {
+            name: '和風嬰兒式腰椎牽引減壓',
+            duration: 50,
+            focusArea: '腰陽關與骶棘肌',
+            formula: '俯首 · 沉臀 · 舒脊',
+            animKey: 'waist-child',
+            tips: [
+              '1. 坐在椅上分開雙膝，上半身向前俯臥，腹部貼在大腿上。',
+              '2. 雙臂自然垂落垂地或搭在小腿前側，頭部放鬆下垂。',
+              '3. 讓地心引力自然牽引拉開腰椎間隙，每次呼吸深達腰部。'
+            ]
+          }
+        ]
+      },
+      hips: {
+        name: '骨盆開胯',
+        point: '環跳 · 秩邊穴巡禮',
+        shortNote: '臀部深層梨狀肌受壓痙攣容易壓迫坐骨神經。藉由4字伸展喚醒骨盆氣血流動。',
+        tomorrowTarget: 'legs',
+        tomorrowReason: '臀腿相連。今日打開了深層臀肌與環跳穴，明日推薦接續伸展「膝腿與委中穴」，讓整條坐骨神經全面解套。',
+        hazardTitle: '【什麼姿勢容易讓骨盆臀部緊繃？】',
+        hazardDesc: '翹二郎腿或將皮夾放在後口袋久坐，導致骨盆旋轉傾斜、單側梨狀肌持續痙攣壓迫神經。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '雙腳平放地面，膝蓋與髖關節同寬；可在辦公椅上放一個中庸硬度的坐墊，分散坐骨結節壓力。',
+        steps: [
+          {
+            name: '坐姿「4字形」梨狀肌開展',
+            duration: 50,
+            focusArea: '深層梨狀肌與環跳穴',
+            formula: '架腿 · 立腰 · 前折',
+            animKey: 'hip-figure4',
+            tips: [
+              '1. 坐姿將右腳踝跨放在左大腿膝蓋上方，小腿橫放成數字「4」。',
+              '2. 挺直背脊，吸氣延展，吐氣時以髖骨為轉軸、上半身向前俯身。',
+              '3. 感受右側臀部深層酸脹釋放，保持腳尖微回勾保護膝蓋。'
+            ]
+          },
+          {
+            name: '坐姿蝴蝶式腹股溝放鬆',
+            duration: 45,
+            focusArea: '內收肌群與盆底筋膜',
+            formula: '相對 · 展膝 · 沉息',
+            animKey: 'hip-butterfly',
+            tips: [
+              '1. 雙腳腳掌相對合攏，雙手輕扶腳踝或腳尖。',
+              '2. 配合深沉呼吸，雙膝如蝴蝶展翅般向兩側下沉。',
+              '3. 吸氣拔高背部，吐氣進一步放鬆大腿內側肌群。'
+            ]
+          },
+          {
+            name: '髂腰肌深層箭步延展',
+            duration: 50,
+            focusArea: '骨盆前側髂腰肌群',
+            formula: '後撤 · 下沉 · 挺立',
+            animKey: 'hip-lunge',
+            tips: [
+              '1. 單腳站立扶椅背，另一腳向後邁出一大步成弓箭步。',
+              '2. 骨盆擺正不外旋，微收下腹部，重心緩慢下沉。',
+              '3. 感受後側大腿根部與腹股溝深處的伸拉感。'
+            ]
+          }
+        ]
+      },
+      legs: {
+        name: '膝腿疏通',
+        point: '委中 · 足三里巡禮',
+        shortNote: '「腰背委中求」，大腿後側膕繩肌緊繃是下背疼痛的根本牽引源，暢通腿部膀胱經。',
+        tomorrowTarget: 'ankles',
+        tomorrowReason: '大腿後側經筋一路向下延伸至足底。今日調理了膝腿委中，明日建議接續活絡「腳踝與太谿穴」，完成下肢全息伸展。',
+        hazardTitle: '【什麼姿勢容易讓腿部腫脹僵硬？】',
+        hazardDesc: '雙腿盤坐於椅子上或長時間膝蓋彎曲超過90度，阻礙膕窩靜脈回流，引發下肢水腫、小腿抽筋。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '坐姿時膝蓋略低於臀部；每隔1小時做「腳尖抬起—腳跟抬起」小腿幫浦運動，促進血液回流心臟。',
+        steps: [
+          {
+            name: '坐姿單腿膕繩肌前伸拉伸',
+            duration: 50,
+            focusArea: '大腿後側膕繩肌與膕窩委中穴',
+            formula: '伸腿 · 回勾 · 前俯',
+            animKey: 'leg-hamstring',
+            tips: [
+              '1. 坐於椅子前半段，右腿向前伸直，腳跟著地、腳尖強烈回勾。',
+              '2. 雙手扶在左膝上，背脊挺直，由髖部帶動上半身向前傾斜。',
+              '3. 鎖定右大腿後側與膝後窩的深層筋膜延展。'
+            ]
+          },
+          {
+            name: '腓腸肌台階下沉拉伸',
+            duration: 45,
+            focusArea: '小腿肚肌肉與阿基里斯腱',
+            formula: '腳跟 · 下沉 · 蹬直',
+            animKey: 'leg-calf',
+            tips: [
+              '1. 雙手扶牆，右腳掌前部踩在台階或墊木上，腳跟懸空。',
+              '2. 重心慢慢移至右腳，讓右腳跟自然向下沉落至水平面以下。',
+              '3. 感受小腿肚深處緊繃筋膜被完全拉展。'
+            ]
+          },
+          {
+            name: '足三里與脛骨前肌順撫',
+            duration: 45,
+            focusArea: '小腿外側脛骨前肌與足三里',
+            formula: '指壓 · 順推 · 活血',
+            animKey: 'leg-shin',
+            tips: [
+              '1. 雙手握拳，以指關節由外膝眼下四橫指的足三里穴開始。',
+              '2. 沿著脛骨外側肌肉由上至下緩慢推撫至腳背。',
+              '3. 重複推按 10 次，消除行路帶來的痠脹沉重感。'
+            ]
+          }
+        ]
+      },
+      ankles: {
+        name: '腳踝活絡',
+        point: '太谿 · 崑崙穴巡禮',
+        shortNote: '腳踝是全身承重軸心，內外踝經絡交會。旋轉腳踝釋放跟腱壓力，改善下肢浮腫。',
+        tomorrowTarget: 'head',
+        tomorrowReason: '下肢陰陽經絡匯聚於足踝，上通於巔頂。今日調順了腳踝太谿穴，明日建議回歸「頭部百會穴」，完成人體周天循環。',
+        hazardTitle: '【什麼姿勢容易讓腳踝僵硬受傷？】',
+        hazardDesc: '走路重心內外偏斜、久坐腳掌勾著椅腳，使踝關節微錯位、外側韌帶代償緊張，增加扭傷風險。',
+        preventionTitle: '【日常避坑與養生錦囊】',
+        preventionDesc: '選擇足弓支撐良好的鞋款；每晚以 40 度溫水泡腳過踝關節 15 分鐘，溫養腎經太谿穴。',
+        steps: [
+          {
+            name: '踝關節全方位順逆慢轉',
+            duration: 45,
+            focusArea: '太谿與崑崙穴周圍韌帶',
+            formula: '抬腿 · 慢畫 · 滿圓',
+            animKey: 'ankle-circle',
+            tips: [
+              '1. 單腳微微抬離地面，以腳踝為圓心帶動腳尖在空中畫大圓。',
+              '2. 順時針轉動 10 圈，再逆時針轉動 10 圈，動作柔和緩慢。',
+              '3. 感受踝骨周邊軟組織在旋轉中獲得充血放鬆。'
+            ]
+          },
+          {
+            name: '腳趾張合與足弓抓地喚醒',
+            duration: 45,
+            focusArea: '足底筋膜與湧泉穴',
+            formula: '張趾 · 抓地 · 展弓',
+            animKey: 'ankle-spread',
+            tips: [
+              '1. 脫鞋赤足，雙腳腳底緊貼地面。',
+              '2. 五趾盡可能像手掌般大力分開，隨後用力彎曲抓地。',
+              '3. 重複張開與抓地動作 15 次，活絡足底足弓彈性。'
+            ]
+          },
+          {
+            name: '太谿跟腱後側反向拉展',
+            duration: 45,
+            focusArea: '阿基里斯腱與內踝後緣',
+            formula: '勾腳 · 提掌 · 靜止',
+            animKey: 'ankle-achilles',
+            tips: [
+              '1. 雙手扶椅背，單腳向後蹬直，全腳掌踏平地面。',
+              '2. 身體重心前移，確保後腳腳跟牢牢踩住地面不離地。',
+              '3. 專注感受跟腱深處的牽拉感，釋放腳踝淤滯沉重。'
+            ]
+          }
+        ]
+      }
+    };
+
+    /* =====================================================================
+     * 4. TCM CHIBI STICKERS DATA (貼圖圖鑑獎勵)
+     * ===================================================================== */
+    const CHIBI_STICKERS = [
+      {
+        id: 'stk-1',
+        name: '扎針放鬆小銅人',
+        desc: '頭頂扎著三枚小金針，神清氣爽，神遊太虛。',
+        unlocked: true,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <ellipse cx="50" cy="52" rx="28" ry="26" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <!-- Cute hairpin / needle -->
+            <line x1="50" y1="26" x2="50" y2="12" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="50" cy="11" r="2.5" fill="#006284"/>
+            <line x1="38" y1="28" x2="32" y2="16" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
+            <line x1="62" y1="28" x2="68" y2="16" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
+            <!-- Happy Face -->
+            <path d="M40 50 Q45 44 50 50" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <path d="M50 50 Q55 44 60 50" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <circle cx="36" cy="54" r="3.5" fill="#D08C60" opacity="0.4"/>
+            <circle cx="64" cy="54" r="3.5" fill="#D08C60" opacity="0.4"/>
+            <path d="M46 58 Q50 63 54 58" stroke="#006284" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <ellipse cx="50" cy="85" rx="18" ry="10" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk-2',
+        name: '暖艾飄香小艾草',
+        desc: '懷抱一顆微熱艾灸條，袪除周身寒濕濁氣。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <ellipse cx="50" cy="50" rx="26" ry="25" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <!-- Leaf / Moxa bun -->
+            <path d="M46 25 C46 16 54 16 54 25 Z" fill="#7A8084"/>
+            <circle cx="42" cy="48" r="3" fill="#006284"/>
+            <circle cx="58" cy="48" r="3" fill="#006284"/>
+            <path d="M47 54 Q50 57 53 54" stroke="#006284" stroke-width="2" fill="none"/>
+            <!-- Holding Moxa Roll -->
+            <rect x="36" y="66" width="28" height="12" rx="4" fill="#D08C60" stroke="#006284" stroke-width="2"/>
+            <circle cx="62" cy="72" r="3" fill="#E86C45"/>
+            <path d="M64 68 Q68 64 66 60" stroke="#D08C60" stroke-width="1.5" stroke-dasharray="2,2" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk-3',
+        name: '抱刮痧板小遊仙',
+        desc: '手拿溫潤牛角刮痧板，順著經絡梳通百脈。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <ellipse cx="50" cy="48" rx="26" ry="24" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="40" cy="46" r="2.5" fill="#006284"/>
+            <circle cx="60" cy="46" r="2.5" fill="#006284"/>
+            <circle cx="36" cy="52" r="3" fill="#D08C60" opacity="0.3"/>
+            <circle cx="64" cy="52" r="3" fill="#D08C60" opacity="0.3"/>
+            <!-- Big Guasha plate -->
+            <path d="M30 68 C35 58 65 58 70 68 C68 82 32 82 30 68 Z" fill="#006284" stroke="#004a63" stroke-width="2"/>
+            <circle cx="50" cy="70" r="4" fill="#F4EFE6"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk-4',
+        name: '慢飲熱茶養生僮',
+        desc: '雙手捧著枸杞紅棗熱茶，溫養臟腑，氣定神閒。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <ellipse cx="50" cy="46" rx="26" ry="24" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <path d="M42 46 Q46 42 50 46" stroke="#006284" stroke-width="2" fill="none"/>
+            <path d="M50 46 Q54 42 58 46" stroke="#006284" stroke-width="2" fill="none"/>
+            <!-- Tea cup -->
+            <path d="M40 68 L42 85 L58 85 L60 68 Z" fill="#D08C60" stroke="#006284" stroke-width="2"/>
+            <path d="M46 62 Q50 56 48 50" stroke="#7A8084" stroke-width="1.5" stroke-dasharray="2,2" fill="none"/>
+            <path d="M52 62 Q56 56 54 50" stroke="#7A8084" stroke-width="1.5" stroke-dasharray="2,2" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk-5',
+        name: '劈腿拉伸武行僧',
+        desc: '筋長一寸，壽延十年！身手矯健，骨正筋柔。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <circle cx="50" cy="38" r="20" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="44" cy="36" r="2.5" fill="#006284"/>
+            <circle cx="56" cy="36" r="2.5" fill="#006284"/>
+            <path d="M48 42 Q50 46 52 42" stroke="#006284" stroke-width="2" fill="none"/>
+            <!-- Wide Split Leg Lines -->
+            <path d="M18 78 L50 60 L82 78" stroke="#006284" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="50" cy="60" r="4" fill="#D08C60"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk-6',
+        name: '打坐冥想小如來',
+        desc: '盤腿端坐蓮花台，呼吸細勻，天地與我並生。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto select-none">
+            <ellipse cx="50" cy="42" rx="24" ry="22" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+            <path d="M40 40 L46 40 M54 40 L60 40" stroke="#006284" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Halo -->
+            <circle cx="50" cy="42" r="32" stroke="#D08C60" stroke-width="2" stroke-dasharray="3,3" fill="none"/>
+            <!-- Crossed base -->
+            <path d="M26 78 Q50 68 74 78 Q50 86 26 78 Z" fill="#D8CFBE" stroke="#006284" stroke-width="2.5"/>
+          </svg>
+        `
+      }
+    ];
+
+    /* =====================================================================
+     * 5. REALISTIC ANATOMICAL MOTION DEMONSTRATION SVGS (擬真人體流動動態)
      * ===================================================================== */
     function renderStepDemonstrationSvg(animKey) {
       switch (animKey) {
+        /* --- 1. SHOULDER & NECK: REALISTIC SEATED LATERAL TILT --- */
         case 'neck-tilt':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <path d="M40 120 Q80 110 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
-              <path d="M72 112 L72 96 M88 112 L88 96" stroke="#006284" stroke-width="2"/>
-              <path d="M46 118 Q62 100 74 94" stroke="#D08C60" stroke-width="6" stroke-linecap="round" opacity="0.85" class="breath-anim"/>
-              <g class="anim-head-tilt">
-                <ellipse cx="80" cy="62" rx="26" ry="30" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
-                <circle cx="80" cy="30" r="7" fill="#006284"/>
-                <path d="M72 64 Q75 60 78 64" stroke="#006284" stroke-width="2" fill="none"/>
-                <path d="M84 64 Q87 60 90 64" stroke="#006284" stroke-width="2" fill="none"/>
-                <path d="M120 120 Q128 78 98 42" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <path d="M102 54 L114 62 L106 66" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Human Anatomy Base: Clavicles & Torso -->
+              <path d="M42 135 C52 118 72 114 85 114 C98 114 118 118 128 135" fill="#E6DFD3" stroke="#006284" stroke-width="2.5"/>
+              <path d="M50 120 Q85 128 120 120" stroke="#006284" stroke-width="1.8" fill="none" opacity="0.6"/> <!-- Clavicle -->
+              
+              <!-- Trapezius Muscle Tension Ribbon (Animated Glow) -->
+              <path d="M54 118 C64 96 74 88 80 82" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+              <text x="32" y="105" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">牽拉斜方肌</text>
+              
+              <!-- Upper Head & Neck Realistic Tilting Unit -->
+              <g class="anim-real-head-tilt">
+                <!-- Neck column -->
+                <path d="M76 80 L74 102 M94 80 L96 102" stroke="#006284" stroke-width="2"/>
+                <!-- Head contour -->
+                <ellipse cx="85" cy="56" rx="20" ry="25" fill="#F4EFE6" stroke="#006284" stroke-width="2.4"/>
+                <path d="M72 54 Q78 48 84 54" stroke="#006284" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M88 54 Q92 48 98 54" stroke="#006284" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M83 66 Q86 69 89 66" stroke="#006284" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <!-- Overhead Hand Guiding the Lateral Stretch -->
+                <path d="M128 135 C136 95 125 50 96 38" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M96 38 C90 35 84 40 85 45" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <!-- Pulling vector indicator -->
+                <path d="M106 48 L116 56 L108 60" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="anim-arrow-hint"/>
               </g>
+              
+              <!-- Fixed Shoulder Depressing Force Indicator -->
+              <line x1="50" y1="124" x2="50" y2="136" stroke="#006284" stroke-width="2.2" stroke-linecap="round"/>
+              <polygon points="46,134 50,140 54,134" fill="#006284"/>
+              <text x="18" y="136" fill="#006284" font-size="8" font-family="'Zen Maru Gothic', sans-serif">沉肩固定</text>
             </svg>
           `;
+
+        /* --- 2. NECK: 45-DEGREE LEVATOR SCAPULAE STRETCH --- */
         case 'neck-diag':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <path d="M40 120 Q80 112 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
-              <path d="M56 116 Q68 96 74 88" stroke="#D08C60" stroke-width="6" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
-              <g class="anim-head-tilt">
-                <ellipse cx="82" cy="66" rx="26" ry="28" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <circle cx="86" cy="68" r="2.5" fill="#006284"/>
-                <path d="M120 120 Q126 80 92 48" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <line x1="90" y1="52" x2="102" y2="70" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <path d="M42 135 C52 118 72 114 85 114 C98 114 118 118 128 135" fill="#E6DFD3" stroke="#006284" stroke-width="2.5"/>
+              <!-- Levator Scapulae Ribbon behind neck -->
+              <path d="M60 120 Q70 102 78 86" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+              <text x="24" y="96" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">提肩胛肌延展</text>
+
+              <g class="anim-real-head-tilt">
+                <ellipse cx="88" cy="62" rx="20" ry="24" fill="#F4EFE6" stroke="#006284" stroke-width="2.4"/>
+                <circle cx="94" cy="62" r="2.5" fill="#006284"/>
+                <path d="M125 130 C134 85 120 48 95 44" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <!-- Diagonal pulling arrow -->
+                <line x1="96" y1="48" x2="110" y2="66" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+                <polygon points="112,62 112,69 105,68" fill="#D08C60"/>
               </g>
+              <text x="100" y="132" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">看向對角口袋</text>
             </svg>
           `;
+
         case 'neck-roll':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <path d="M40 120 Q80 108 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
-              <ellipse cx="80" cy="60" rx="26" ry="30" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-              <circle cx="80" cy="28" r="7" fill="#006284"/>
-              <path d="M44 100 A 10 10 0 1 1 54 116" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
-              <path d="M116 100 A 10 10 0 1 0 106 116" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <ellipse cx="85" cy="60" rx="22" ry="26" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+              <path d="M74 58 Q80 52 86 58" stroke="#006284" stroke-width="2" fill="none"/>
+              <path d="M42 128 C56 110 74 108 85 108 C96 108 114 110 128 128" fill="#E6DFD3" stroke="#006284" stroke-width="2.5"/>
+              <!-- Shoulder roll orbit trails -->
+              <path d="M46 106 A 12 12 0 1 1 58 124" stroke="#D08C60" stroke-width="2.8" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              <polygon points="60,120 62,126 55,125" fill="#D08C60"/>
+              <path d="M124 106 A 12 12 0 1 0 112 124" stroke="#D08C60" stroke-width="2.8" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              <polygon points="110,120 108,126 115,125" fill="#D08C60"/>
+              <text x="54" y="138" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">雙肩大圓畫弧</text>
             </svg>
           `;
-        case 'head-comb':
-        case 'head-temple':
-        case 'head-lift':
-          return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <ellipse cx="80" cy="66" rx="28" ry="32" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
-              <circle cx="80" cy="34" r="8" fill="#006284"/>
-              <circle cx="80" cy="34" r="16" stroke="#D08C60" stroke-width="2" class="breath-anim" fill="none"/>
-              <path d="M50 60 Q65 40 80 40 Q95 40 110 60" stroke="#D08C60" stroke-width="3" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
-            </svg>
-          `;
+
+        /* --- 3. WRIST & FOREARM: REALISTIC ANATOMY PALMAR/DORSIFLEXION --- */
         case 'wrist-flexor':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <rect x="25" y="70" width="70" height="18" rx="8" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
-              <line x1="30" y1="84" x2="88" y2="84" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
-              <g class="anim-wrist-flex">
-                <path d="M95 79 L120 54 L126 60 L101 85 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M125 50 Q110 40 98 52" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Extended Forearm with muscular radius/ulna contour -->
+              <path d="M22 68 C45 66 65 68 85 70 L85 86 C65 88 45 90 22 88 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2.2"/>
+              <!-- Deep Flexor Muscle Belly Elongating -->
+              <line x1="32" y1="80" x2="82" y2="80" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round"/>
+              <text x="28" y="60" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">前臂屈肌群牽拉</text>
+
+              <!-- Palm extending backwards -->
+              <g class="anim-real-wrist-pull">
+                <path d="M85 70 L115 48 C120 44 126 48 124 54 L98 84 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+                <!-- Other hand applying gentle pulling tension -->
+                <path d="M130 38 L114 50 L122 58" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <!-- Backward force arrow -->
+                <path d="M126 42 Q112 32 98 44" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+                <polygon points="98,40 96,48 103,44" fill="#D08C60"/>
               </g>
+              <text x="86" y="112" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">手肘微屈不鎖死</text>
             </svg>
           `;
+
         case 'wrist-extensor':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <rect x="25" y="65" width="70" height="18" rx="8" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
-              <line x1="30" y1="67" x2="88" y2="67" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
-              <g class="anim-wrist-flex">
-                <path d="M95 72 L118 96 L112 102 L89 78 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M120 104 Q105 110 95 98" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <path d="M22 65 C45 63 65 65 85 67 L85 83 C65 85 45 87 22 85 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2.2"/>
+              <line x1="32" y1="71" x2="82" y2="71" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round"/>
+              <text x="28" y="55" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">背側伸肌群舒展</text>
+
+              <!-- Hand flexed downward -->
+              <g class="anim-real-wrist-pull">
+                <path d="M85 73 L110 98 C115 103 118 98 114 92 L94 67 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+                <path d="M122 106 L108 94 L114 86" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M120 106 Q106 114 96 102" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+                <polygon points="96,106 94,98 101,102" fill="#D08C60"/>
               </g>
             </svg>
           `;
+
         case 'wrist-roll':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <ellipse cx="80" cy="75" rx="30" ry="24" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-              <path d="M68 65 Q80 72 92 65" stroke="#006284" stroke-width="2" fill="none"/>
-              <path d="M68 85 Q80 78 92 85" stroke="#006284" stroke-width="2" fill="none"/>
-              <path d="M55 75 Q68 60 80 75 Q92 90 105 75" stroke="#D08C60" stroke-width="3" stroke-linecap="round" fill="none" class="breath-anim"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <ellipse cx="85" cy="74" rx="26" ry="22" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+              <path d="M68 64 Q85 74 102 64" stroke="#006284" stroke-width="2" fill="none"/>
+              <path d="M68 84 Q85 74 102 84" stroke="#006284" stroke-width="2" fill="none"/>
+              <!-- Infinite wave path -->
+              <path d="M52 74 Q70 54 85 74 Q100 94 118 74" stroke="#D08C60" stroke-width="3" stroke-linecap="round" fill="none" class="anim-muscle-glow"/>
+              <text x="50" y="116" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">十指合扣畫 ∞ 字</text>
             </svg>
           `;
+
+        /* --- 4. UPPER BACK & THORACIC: REALISTIC SCAPULAR & SPINE MOVEMENT --- */
         case 'back-hug':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <g class="anim-scapula-draw">
-                <ellipse cx="80" cy="74" rx="36" ry="42" fill="#EDE7DC" stroke="#006284" stroke-width="2.2"/>
-                <line x1="80" y1="36" x2="80" y2="114" stroke="#006284" stroke-width="1.8" stroke-dasharray="3,3"/>
-                <path d="M58 56 Q48 76 60 94" stroke="#D08C60" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.9" class="breath-anim"/>
-                <path d="M102 56 Q112 76 100 94" stroke="#D08C60" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.9" class="breath-anim"/>
-                <line x1="56" y1="75" x2="40" y2="75" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
-                <line x1="104" y1="75" x2="120" y2="75" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
-              </g>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Posterior Trunk & Scapular Outlines -->
+              <path d="M52 50 C44 75 42 108 50 135 L120 135 C128 108 126 75 118 50 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2.2"/>
+              <line x1="85" y1="46" x2="85" y2="135" stroke="#006284" stroke-width="1.8" stroke-dasharray="3,3" opacity="0.6"/> <!-- Spine -->
+
+              <!-- Rhomboids & Scapula Pulled Outward (Animated) -->
+              <path d="M60 68 Q50 90 62 110" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+              <path d="M110 68 Q120 90 108 110" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+              
+              <!-- Cross Arms Hugging Body -->
+              <path d="M42 98 C65 65 105 65 128 98" stroke="#006284" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <text x="46" y="38" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">展開肩胛骨膏肓穴</text>
+
+              <!-- Outward Arrow Indicators -->
+              <line x1="68" y1="88" x2="52" y2="88" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+              <polygon points="54,84 48,88 54,92" fill="#D08C60"/>
+              <line x1="102" y1="88" x2="118" y2="88" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+              <polygon points="116,84 122,88 116,92" fill="#D08C60"/>
             </svg>
           `;
+
         case 'back-ext':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <line x1="68" y1="60" x2="68" y2="130" stroke="#7A8084" stroke-width="3" stroke-linecap="round"/>
-              <g class="anim-spine-wave">
-                <circle cx="85" cy="40" r="18" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M85 58 Q72 82 82 120" stroke="#006284" stroke-width="3.5" fill="none"/>
-                <circle cx="92" cy="72" r="10" fill="#D08C60" opacity="0.3" class="breath-anim"/>
-                <path d="M72 45 Q78 30 88 35" stroke="#006284" stroke-width="2.5" fill="none"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Chair back rest anchor -->
+              <line x1="72" y1="72" x2="72" y2="136" stroke="#7A8084" stroke-width="4" stroke-linecap="round"/>
+              <polygon points="68,136 76,136 72,140" fill="#7A8084"/>
+              
+              <!-- Human Torso Extending Backwards -->
+              <g class="anim-real-spine-curve">
+                <circle cx="94" cy="42" r="16" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+                <!-- Neck supported by hand -->
+                <path d="M88 44 C95 38 102 44 98 52" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <!-- Curved thoracic spine and chest open -->
+                <path d="M92 58 C78 78 82 108 86 132" stroke="#006284" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <!-- Chest opening sunray glow -->
+                <path d="M96 74 Q116 78 124 90" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+                <text x="100" y="66" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">胸椎後伸展開</text>
               </g>
+              <text x="18" y="98" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">椅背為支點</text>
             </svg>
           `;
+
         case 'back-catcow':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <g class="anim-spine-wave">
-                <path d="M30 85 Q80 50 130 85" stroke="#006284" stroke-width="4" stroke-linecap="round" fill="none"/>
-                <path d="M50 72 Q80 55 110 72" stroke="#D08C60" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85" class="breath-anim"/>
-                <circle cx="30" cy="85" r="12" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <circle cx="130" cy="85" r="14" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
-                <line x1="30" y1="97" x2="30" y2="128" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
-                <line x1="130" y1="99" x2="130" y2="128" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <g class="anim-real-spine-curve">
+                <!-- Human Hands and Knees Anatomical Tabletop Pose -->
+                <circle cx="34" cy="74" r="12" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M34 86 L34 126" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Pelvis & Rear Legs -->
+                <path d="M136 94 L136 126" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Wave Spine Curve (Alternating Cat Cow) -->
+                <path d="M36 84 Q85 55 134 86" stroke="#006284" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                <!-- Erector Spinae glowing ribbon -->
+                <path d="M50 74 Q85 62 120 74" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+                <text x="58" y="44" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">吸氣延展 · 吐氣拱背</text>
               </g>
             </svg>
           `;
+
+        /* --- 5. LUMBAR & WAIST: REALISTIC TWIST & CHILD POSE --- */
         case 'waist-twist':
         case 'waist-side':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <ellipse cx="80" cy="115" rx="35" ry="12" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
-              <g class="anim-spine-wave">
-                <circle cx="80" cy="40" r="18" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M80 58 L80 110" stroke="#006284" stroke-width="3"/>
-                <path d="M55 85 Q80 102 105 85" stroke="#D08C60" stroke-width="3.5" stroke-linecap="round" fill="none" class="breath-anim"/>
-                <polygon points="108,82 105,92 98,85" fill="#D08C60"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Seated pelvis base -->
+              <ellipse cx="85" cy="120" rx="36" ry="12" fill="#EDE7DC" stroke="#006284" stroke-width="2.2"/>
+              <!-- Torso twisting along longitudinal spine axis -->
+              <g class="anim-real-waist-twist">
+                <circle cx="85" cy="38" r="16" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <!-- Spine upright -->
+                <line x1="85" y1="54" x2="85" y2="114" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Quadratus Lumborum & Oblique Spiral Stretch Glow -->
+                <path d="M62 82 Q85 98 108 82" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+                <polygon points="110,78 112,86 104,83" fill="#D08C60"/>
+                <text x="44" y="68" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">腰陽關與側腰扭轉</text>
+              </g>
+              <text x="56" y="138" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">坐骨平貼椅面</text>
+            </svg>
+          `;
+
+        case 'waist-child':
+          return `
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Realistic Child Pose / Lumbar Decompression -->
+              <g class="anim-real-spine-curve">
+                <path d="M135 118 C125 90 95 86 65 96 C50 102 36 112 25 118" stroke="#006284" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <!-- Arm reaching forward -->
+                <line x1="45" y1="108" x2="12" y2="122" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+                <!-- Lumbar curve traction glow -->
+                <path d="M75 92 Q105 88 128 105" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round" fill="none"/>
+                <text x="44" y="55" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">腰椎間隙自然拉長</text>
               </g>
             </svg>
           `;
-        case 'waist-child':
+
+        /* --- 6. HIPS & PELVIS: REALISTIC SEATED FIGURE-4 & PIRIFORMIS --- */
+        case 'hip-figure4':
+        case 'hip-butterfly':
+        case 'hip-lunge':
+          return `
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Seated Base with Cross Leg Form 4 -->
+              <path d="M55 125 L75 90 L115 125" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+              <!-- Cross Foot Ankle over Knee -->
+              <path d="M62 104 L118 104" stroke="#006284" stroke-width="4" stroke-linecap="round"/>
+              <!-- Deep Piriformis Glow Area -->
+              <circle cx="102" cy="98" r="9" fill="#D08C60" class="anim-muscle-glow"/>
+              <text x="86" y="88" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">深層梨狀肌放鬆</text>
+
+              <!-- Forward Folding Trunk from Hip Joint -->
+              <g class="anim-real-hip-fold">
+                <circle cx="75" cy="38" r="15" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M75 53 L75 90" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Hip hinge arrow -->
+                <path d="M76 60 Q94 72 88 84" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+                <polygon points="90,82 86,88 83,82" fill="#D08C60"/>
+              </g>
+              <text x="24" y="138" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">背脊打直 · 以髖前折</text>
+            </svg>
+          `;
+
+        /* --- 7. LEGS & HAMSTRINGS: SEATED EXTENDED LEG STRETCH --- */
         case 'leg-hamstring':
         case 'leg-calf':
         case 'leg-shin':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <g class="anim-hip-rock">
-                <line x1="25" y1="110" x2="135" y2="110" stroke="#006284" stroke-width="4" stroke-linecap="round"/>
-                <line x1="50" y1="114" x2="110" y2="114" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
-                <path d="M25 110 Q60 70 100 88" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <circle cx="106" cy="85" r="14" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <line x1="90" y1="95" x2="130" y2="108" stroke="#D08C60" stroke-width="3" stroke-linecap="round"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Ground / Chair Floor Line -->
+              <line x1="20" y1="126" x2="150" y2="126" stroke="#006284" stroke-width="2.5" stroke-linecap="round"/>
+              
+              <!-- Straight leg with flexed dorsiflexed foot -->
+              <path d="M35 124 L105 124 Q116 112 120 95" stroke="#006284" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <line x1="35" y1="124" x2="35" y2="108" stroke="#006284" stroke-width="3" stroke-linecap="round"/> <!-- Flexed toe -->
+              
+              <!-- Popliteal Fossa & Hamstring Glow Ribbon -->
+              <path d="M50 120 L95 120" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round"/>
+              <text x="36" y="60" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">膕窩委中穴與大腿後側</text>
+
+              <!-- Forward Reach from Torso -->
+              <g class="anim-real-hip-fold">
+                <circle cx="120" cy="72" r="13" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M120 85 L108 108" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+                <line x1="110" y1="92" x2="68" y2="114" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round"/>
               </g>
+              <text x="96" y="138" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">腳尖回勾 · 膝微曲不卡死</text>
             </svg>
           `;
-        case 'hip-figure4':
-        case 'hip-lunge':
-        case 'hip-butterfly':
-          return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <g class="anim-hip-rock">
-                <circle cx="80" cy="38" r="16" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M80 54 L80 90" stroke="#006284" stroke-width="3"/>
-                <path d="M60 120 L80 90 L100 120" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
-                <path d="M68 105 L112 105" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
-                <circle cx="98" cy="98" r="8" fill="#D08C60" opacity="0.6" class="breath-anim"/>
-                <line x1="80" y1="65" x2="95" y2="80" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
-              </g>
-            </svg>
-          `;
+
+        /* --- 8. ANKLES & FEET: REALISTIC ANKLE ROTATION & ACHILLES --- */
         case 'ankle-circle':
         case 'ankle-spread':
         case 'ankle-achilles':
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
-              <g class="anim-ankle-pump">
-                <path d="M50 35 L70 95 L84 95 L72 35 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
-                <path d="M70 95 L118 95 Q125 105 110 110 L64 110 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <circle cx="74" cy="98" r="6" fill="#D08C60" class="breath-anim"/>
-                <path d="M105 85 A 14 14 0 1 1 115 105" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
+              <!-- Calf & Shin Column -->
+              <path d="M48 35 C52 65 62 85 70 94 L86 94 C78 85 68 65 64 35 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2.2"/>
+              <!-- Achilles Tendon & Taixi Acupoint Ribbon -->
+              <line x1="56" y1="75" x2="70" y2="95" stroke="#D08C60" class="anim-muscle-glow" stroke-linecap="round"/>
+              <text x="24" y="30" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">太谿穴與跟腱活絡</text>
+
+              <!-- Rotating Foot Joint (Plantar & Dorsiflexion) -->
+              <g class="anim-real-ankle-flex">
+                <path d="M70 94 L118 94 C126 102 118 112 104 112 L64 112 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2.4"/>
+                <circle cx="74" cy="98" r="5" fill="#D08C60"/>
+                <!-- Rotation Orbit Arrow -->
+                <path d="M106 82 A 15 15 0 1 1 118 104" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+                <polygon points="120,98 122,106 114,104" fill="#D08C60"/>
               </g>
+              <text x="50" y="136" fill="#7A8084" font-size="8" font-family="'Zen Maru Gothic', sans-serif">足踝最大幅度順逆慢轉</text>
             </svg>
           `;
+
+        /* --- DEFAULT: HEAD & MEDITATION --- */
         default:
           return `
-            <svg viewBox="0 0 160 140" class="w-40 h-40">
+            <svg viewBox="0 0 170 145" class="w-44 h-44 select-none">
               <g class="breath-anim">
-                <circle cx="80" cy="50" r="22" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
-                <path d="M80 72 L80 110" stroke="#006284" stroke-width="3"/>
-                <circle cx="80" cy="50" r="30" stroke="#D08C60" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+                <circle cx="85" cy="52" r="22" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <circle cx="85" cy="24" r="6" fill="#006284"/>
+                <path d="M85 74 L85 115" stroke="#006284" stroke-width="3"/>
+                <circle cx="85" cy="52" r="32" stroke="#D08C60" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+                <text x="44" y="136" fill="#D08C60" font-size="9" font-family="'Zen Maru Gothic', sans-serif" font-weight="bold">呼吸吐納 · 放鬆自癒</text>
               </g>
             </svg>
           `;
@@ -1605,13 +1720,32 @@
     }
 
     /* =====================================================================
-     * 6. ACTIVE ZONE & STEP SWITCHING & TWO-STAGE TRANSITIONS
+     * 6. ACTIVE ZONE & STEP SWITCHING
      * ===================================================================== */
+    function updateAcupointPinColors(selectedZone) {
+      // 將所有部位的光點重置為沉靜的紺碧主色 #006284
+      document.querySelectorAll('.zone-pin').forEach(pin => {
+        pin.setAttribute('fill', '#006284');
+        pin.removeAttribute('stroke');
+        pin.removeAttribute('stroke-width');
+      });
+
+      // 將當前選中部位的光點變色為高亮陶木色 #D08C60，並加上微外框強調
+      document.querySelectorAll(`.${selectedZone}-pin`).forEach(pin => {
+        pin.setAttribute('fill', '#D08C60');
+        pin.setAttribute('stroke', '#FFFFFF');
+        pin.setAttribute('stroke-width', '1.5');
+      });
+    }
+
     function selectZone(zoneKey) {
       if (!STRETCH_DATA[zoneKey]) return;
       currentZone = zoneKey;
       currentStepIndex = 0;
       resetTimer();
+
+      // 純粹變更部位穴道藍點顏色，無任何浮動干擾動畫
+      updateAcupointPinColors(zoneKey);
 
       // Update quick chips
       document.querySelectorAll('.zone-pill').forEach(pill => {
@@ -1623,11 +1757,6 @@
         targetPill.classList.add('bg-muji-primary', 'text-white');
         targetPill.classList.remove('bg-muji-light', 'text-muji-primary');
       }
-
-      // Hide all pulse rings, show current
-      document.querySelectorAll('.pulse-ring').forEach(p => p.classList.add('hidden'));
-      const activePulse = document.getElementById('pulse-' + zoneKey);
-      if (activePulse) activePulse.classList.remove('hidden');
 
       // Update Zone Badges
       const info = STRETCH_DATA[zoneKey];
