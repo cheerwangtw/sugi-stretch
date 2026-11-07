@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>素肌伸展 · 日常和漢身心伸展誌</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Noto Sans TC & Zen Maru Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            muji: {
+              primary: '#006284', // 主色：紺碧墨藍
+              dark: '#004a63',
+              light: '#e9f1f4',
+              accent: '#D08C60',  // 輔助點綴：暖陶土木質色
+              accentLight: '#f7ede6',
+              bg: '#F7F6F2',      // 基底：棉麻和紙米白
+              card: '#FFFFFF',
+              ink: '#2B2B2B',
+              muted: '#7A8084'
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+            zen: ['"Zen Maru Gothic"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F7F6F2;
+      color: #2B2B2B;
+      font-family: 'Noto Sans TC', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .muji-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 98, 132, 0.08);
+      box-shadow: 0 4px 20px -2px rgba(0, 98, 132, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Traditional Seal Stamp */
+    .seal-stamp {
+      border: 2px solid #D08C60;
+      color: #D08C60;
+      transform: rotate(-8deg);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .seal-stamp.stamped {
+      transform: rotate(-4deg) scale(1.05);
+      background-color: rgba(208, 140, 96, 0.12);
+      box-shadow: inset 0 0 0 1px #D08C60;
+    }
+
+    /* Acupuncture Doll Pulse Animation */
+    @keyframes acupulse {
+      0% { transform: scale(0.9); opacity: 0.95; }
+      50% { transform: scale(1.7); opacity: 0.25; }
+      100% { transform: scale(0.9); opacity: 0.95; }
+    }
+    .pulse-ring {
+      animation: acupulse 2.4s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    /* Smooth Breathing Rhythm Glow */
+    @keyframes breathCycle {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+    .breath-anim {
+      animation: breathCycle 5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    /* Guided Dynamic Motion Demonstration Keyframes */
+    /* 1. Neck Tilt */
+    @keyframes demoHeadTilt {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(18deg) translate(3px, 2px); }
+    }
+    .anim-head-tilt {
+      transform-origin: 80px 75px;
+      animation: demoHeadTilt 4s ease-in-out infinite;
+    }
+
+    /* 2. Wrist Rotation & Flexion */
+    @keyframes demoWristFold {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-25deg); }
+    }
+    .anim-wrist-flex {
+      transform-origin: 80px 80px;
+      animation: demoWristFold 3.5s ease-in-out infinite;
+    }
+
+    /* 3. Scapula Retraction */
+    @keyframes demoScapulaDraw {
+      0%, 100% { transform: scaleX(1); }
+      50% { transform: scaleX(0.85); }
+    }
+    .anim-scapula-draw {
+      transform-origin: 80px 75px;
+      animation: demoScapulaDraw 3.8s ease-in-out infinite;
+    }
+
+    /* 4. Lumbar & Torso Wave */
+    @keyframes demoSpineWave {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(-4deg); }
+    }
+    .anim-spine-wave {
+      transform-origin: 80px 95px;
+      animation: demoSpineWave 4.2s ease-in-out infinite;
+    }
+
+    /* 5. Hip Fold */
+    @keyframes demoHipFold {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(14deg); }
+    }
+    .anim-hip-rock {
+      transform-origin: 65px 85px;
+      animation: demoHipFold 4s ease-in-out infinite;
+    }
+
+    /* 6. Ankle Point & Flex */
+    @keyframes demoAnklePump {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(20deg); }
+    }
+    .anim-ankle-pump {
+      transform-origin: 75px 85px;
+      animation: demoAnklePump 3.2s ease-in-out infinite;
+    }
+
+    /* 7. Arrow Pulse Hint */
+    @keyframes arrowFloat {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(-4px); opacity: 1; }
+    }
+    .anim-arrow-hint {
+      animation: arrowFloat 2s ease-in-out infinite;
+    }
+
+    /* Timer Circle Path Transition */
+    .timer-circle-path {
+      transition: stroke-dashoffset 1s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7F6F2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c3d1d6;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-muji-primary selection:text-white">
+
+  <!-- ================= TOP STICKY HEADER (PURE SINGLE USER) ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-muji-primary/10 transition-all">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-muji-primary flex items-center justify-center text-white shadow-xs">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="7" r="4"/>
+            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+            <circle cx="12" cy="12" r="1.5" fill="#D08C60"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-zen font-bold text-base sm:text-lg tracking-wider text-muji-primary">素肌伸展</span>
+          <span class="text-xs text-muji-muted block font-sans tracking-tight">每日和漢身心舒展誌</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs: 3 Simple Tabs (Single Mode) -->
+      <nav class="flex items-center gap-1.5 sm:gap-2">
+        <button id="nav-stretch" onclick="switchTab('stretch')" class="nav-btn px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all text-white bg-muji-primary">
+          <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> 今日伸展</span>
+        </button>
+        <button id="nav-records" onclick="switchTab('records')" class="nav-btn px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all text-muji-muted hover:text-muji-primary hover:bg-muji-light">
+          <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4"></i> 預告與日誌</span>
+        </button>
+        <button id="nav-album" onclick="switchTab('album')" class="nav-btn px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all text-muji-muted hover:text-muji-primary hover:bg-muji-light">
+          <span class="flex items-center gap-1.5"><i data-lucide="smile" class="w-4 h-4"></i> 貼圖圖鑑</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- ================= TAB 1: 今日伸展 (TODAY'S STRETCH) ================= -->
+    <section id="tab-stretch" class="space-y-6">
+
+      <!-- Top Status Banner (Single Mode Check-in) -->
+      <div class="muji-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4 w-full sm:w-auto">
+          <div id="stampBadge" class="seal-stamp w-14 h-14 rounded-full flex flex-col items-center justify-center font-zen text-xs font-bold shrink-0">
+            <span class="text-[10px] leading-tight">和漢印</span>
+            <span id="stampText">待打卡</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-zen font-bold text-lg text-muji-primary" id="todayDateStr">2026年 霜月</h2>
+              <span class="bg-muji-light text-muji-primary text-xs px-2.5 py-0.5 rounded-full font-medium">個人累計第 <span id="streakDays">1</span> 天</span>
+            </div>
+            <p class="text-xs text-muji-muted mt-0.5" id="headerSubtitleHint">選取欲調理的部位，隨後展開一對一伸展教學</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+          <button id="soundToggleBtn" onclick="toggleSound()" class="px-3 py-2 rounded-xl bg-muji-bg text-muji-primary hover:bg-muji-light border border-muji-primary/10 text-xs font-zen transition-all flex items-center gap-1.5" title="音效切換">
+            <i id="soundIcon" data-lucide="volume-2" class="w-4 h-4 text-muji-accent"></i>
+            <span id="soundLabel">罄鐘音效: 開</span>
+          </button>
+          <button id="btnCheckIn" onclick="handleDailyCheckIn()" class="px-4 py-2 rounded-xl bg-muji-accent text-white font-zen text-xs sm:text-sm font-medium hover:opacity-90 active:scale-95 transition-all shadow-xs flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span id="checkInBtnLabel">每日簽到</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= STAGE 1: 針灸銅人選位階段 (選完確認後隱藏) ================= -->
+      <div id="viewSelectionStage" class="transition-all duration-500 ease-in-out">
+        <div class="muji-card rounded-3xl p-6 sm:p-8 max-w-2xl mx-auto text-center relative overflow-hidden">
+          
+          <div class="flex flex-col items-center mb-4">
+            <span class="text-xs uppercase tracking-widest text-muji-accent font-bold">Step 1 · 經穴診斷</span>
+            <h3 class="font-zen font-bold text-2xl text-muji-primary mt-1">今天想為哪裡釋放疲勞？</h3>
+            <p class="text-xs text-muji-muted mt-1">點擊可愛針灸銅人身上穴位光點，或從下方標籤直接選定</p>
+          </div>
+
+          <!-- Doll SVG Interactive Artboard -->
+          <div class="relative w-full max-w-[280px] mx-auto py-2 flex justify-center">
+            
+            <svg class="w-64 h-[330px] drop-shadow-sm select-none" viewBox="0 0 240 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Shadow base -->
+              <ellipse cx="120" cy="330" rx="55" ry="7" fill="#E8E6DF"/>
+
+              <!-- Legs -->
+              <path d="M96 210 L96 280 Q96 298 84 300 L76 300 Q68 300 68 288 L76 210 Z" fill="#E3DCce" stroke="#006284" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M144 210 L144 280 Q144 298 156 300 L164 300 Q172 300 172 288 L164 210 Z" fill="#E3DCce" stroke="#006284" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Feet -->
+              <rect x="66" y="298" width="22" height="12" rx="6" fill="#D08C60" stroke="#006284" stroke-width="2"/>
+              <rect x="152" y="298" width="22" height="12" rx="6" fill="#D08C60" stroke="#006284" stroke-width="2"/>
+
+              <!-- Torso -->
+              <path d="M78 126 C75 150 74 195 85 214 C94 222 146 222 155 214 C166 195 165 150 162 126 C162 116 78 116 78 126 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2.5"/>
+              <circle cx="120" cy="184" r="2.5" fill="#D08C60"/>
+
+              <!-- Arms -->
+              <path d="M78 128 C58 142 46 168 50 190 C52 198 64 198 66 186 C68 170 76 148 85 138" fill="#EDE7DC" stroke="#006284" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M162 128 C182 142 194 168 190 190 C188 198 176 198 174 186 C172 170 164 148 155 138" fill="#EDE7DC" stroke="#006284" stroke-width="2.5" stroke-linecap="round"/>
+              
+              <!-- Neck & Head -->
+              <rect x="110" y="102" width="20" height="18" rx="6" fill="#D8CFBE" stroke="#006284" stroke-width="2"/>
+              <ellipse cx="120" cy="66" rx="42" ry="38" fill="#F4EFE6" stroke="#006284" stroke-width="2.5"/>
+
+              <!-- Bun & Hairpin -->
+              <ellipse cx="120" cy="24" rx="14" ry="10" fill="#006284"/>
+              <line x1="104" y1="22" x2="136" y2="26" stroke="#D08C60" stroke-width="3" stroke-linecap="round"/>
+
+              <!-- Face -->
+              <path d="M100 66 Q108 59 112 66" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M128 66 Q132 59 140 66" stroke="#006284" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <circle cx="94" cy="72" r="5" fill="#D08C60" opacity="0.3"/>
+              <circle cx="146" cy="72" r="5" fill="#D08C60" opacity="0.3"/>
+              <path d="M116 76 Q120 81 124 76" stroke="#006284" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+              <!-- Meridian Lines -->
+              <path d="M120 42 L120 94 M120 120 L120 210" stroke="#006284" stroke-width="1.2" stroke-dasharray="2,3" opacity="0.35"/>
+
+              <!-- 8 HOTSPOTS -->
+              <!-- 1. Head -->
+              <g id="zone-head" class="cursor-pointer group" onclick="selectZone('head')">
+                <circle cx="120" cy="38" r="18" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="120" cy="34" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="92" cy="56" r="4" fill="#006284" class="zone-pin"/>
+                <circle cx="148" cy="56" r="4" fill="#006284" class="zone-pin"/>
+                <circle id="pulse-head" cx="120" cy="34" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 2. Neck -->
+              <g id="zone-neck" class="cursor-pointer group" onclick="selectZone('neck')">
+                <circle cx="120" cy="110" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="98" cy="116" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="142" cy="116" r="5.5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-neck" cx="120" cy="110" r="16" stroke="#D08C60" stroke-width="1.5" class="pulse-ring" opacity="0.8"/>
+              </g>
+
+              <!-- 3. Wrist -->
+              <g id="zone-wrist" class="cursor-pointer group" onclick="selectZone('wrist')">
+                <circle cx="53" cy="190" r="14" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="187" cy="190" r="14" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="53" cy="190" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="187" cy="190" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-wrist" cx="53" cy="190" r="12" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 4. Upper Back -->
+              <g id="zone-back" class="cursor-pointer group" onclick="selectZone('back')">
+                <circle cx="120" cy="142" r="18" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="106" cy="142" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="134" cy="142" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-back" cx="120" cy="142" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 5. Lower Back -->
+              <g id="zone-waist" class="cursor-pointer group" onclick="selectZone('waist')">
+                <circle cx="120" cy="172" r="19" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="104" cy="172" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="136" cy="172" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-waist" cx="120" cy="172" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 6. Pelvis / Hips -->
+              <g id="zone-hips" class="cursor-pointer group" onclick="selectZone('hips')">
+                <circle cx="120" cy="210" r="20" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="92" cy="210" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="148" cy="210" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-hips" cx="120" cy="210" r="15" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 7. Knees & Legs -->
+              <g id="zone-legs" class="cursor-pointer group" onclick="selectZone('legs')">
+                <circle cx="120" cy="265" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="86" cy="260" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="154" cy="260" r="5" fill="#006284" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-legs" cx="120" cy="260" r="15" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+
+              <!-- 8. Ankles & Feet -->
+              <g id="zone-ankles" class="cursor-pointer group" onclick="selectZone('ankles')">
+                <circle cx="120" cy="300" r="22" fill="#006284" fill-opacity="0.05" class="group-hover:fill-opacity-25 transition-all"/>
+                <circle cx="77" cy="300" r="4.5" fill="#D08C60" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle cx="163" cy="300" r="4.5" fill="#D08C60" class="zone-pin transition-transform group-hover:scale-125"/>
+                <circle id="pulse-ankles" cx="120" cy="300" r="14" stroke="#D08C60" stroke-width="1.5" class="pulse-ring hidden" opacity="0.8"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- 8 Quick Selection Chips -->
+          <div class="grid grid-cols-4 sm:grid-cols-4 gap-2 mt-2 pt-3 border-t border-muji-primary/10">
+            <button onclick="selectZone('head')" id="pill-head" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">頭部·百會</button>
+            <button onclick="selectZone('neck')" id="pill-neck" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-primary text-white">肩頸·肩井</button>
+            <button onclick="selectZone('wrist')" id="pill-wrist" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">手腕·內關</button>
+            <button onclick="selectZone('back')" id="pill-back" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">上背·膏肓</button>
+            <button onclick="selectZone('waist')" id="pill-waist" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">腰部·腎俞</button>
+            <button onclick="selectZone('hips')" id="pill-hips" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">骨盆·環跳</button>
+            <button onclick="selectZone('legs')" id="pill-legs" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">膝腿·委中</button>
+            <button onclick="selectZone('ankles')" id="pill-ankles" class="zone-pill py-2 rounded-xl text-xs font-zen transition-all bg-muji-light text-muji-primary">腳踝·太谿</button>
+          </div>
+
+          <!-- Zone Brief Preview Card -->
+          <div class="mt-4 p-4 bg-muji-bg rounded-2xl text-left border border-muji-primary/5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <span class="font-zen font-bold text-muji-primary flex items-center gap-1.5" id="zoneTitleBadge">
+                <i data-lucide="compass" class="w-4 h-4 text-muji-accent"></i> 頸肩井穴巡禮
+              </span>
+              <span class="text-xs text-muji-accent font-medium" id="zoneAcuDesc">舒緩斜方肌與頸夾肌</span>
+            </div>
+            <p class="text-xs text-muji-muted mt-1.5 leading-relaxed" id="zoneShortNote">
+              久坐螢幕前造成氣血凝滯，斜方肌緊繃牽拉引發後頸僵硬。透過3步驟溫柔伸展，打通經絡。
+            </p>
+          </div>
+
+          <!-- Confirmation Action Button to proceed to Teaching Stage -->
+          <div class="mt-6">
+            <button onclick="confirmZoneAndStart()" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-muji-primary text-white font-zen text-sm sm:text-base font-medium hover:bg-muji-dark transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 mx-auto">
+              <span>確認選位，開始今日伸展</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= STAGE 2: 伸展教學與計時階段 (初始隱藏，確認選位後呈現) ================= -->
+      <div id="viewWorkoutStage" class="hidden transition-all duration-500 ease-in-out">
+        
+        <!-- Top bar with Back to Selection -->
+        <div class="flex items-center justify-between mb-4">
+          <button onclick="backToZoneSelection()" class="px-4 py-2 rounded-xl bg-white border border-muji-primary/10 text-xs sm:text-sm text-muji-primary hover:bg-muji-light font-zen transition-all flex items-center gap-1.5 shadow-2xs">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>重新選擇部位</span>
+          </button>
+          <div class="flex items-center gap-2 text-xs text-muji-muted">
+            <span>當前專注：</span>
+            <span class="font-zen font-bold text-muji-primary bg-muji-light px-2.5 py-1 rounded-lg" id="activeZoneBadgeName">肩頸部位</span>
+          </div>
+        </div>
+
+        <!-- Single Focused 15-Minute Stretching Player Card -->
+        <div class="muji-card rounded-3xl p-5 sm:p-7 relative max-w-3xl mx-auto">
+          
+          <!-- Step Info Bar -->
+          <div class="flex items-center justify-between border-b border-muji-primary/10 pb-4">
+            <div>
+              <span class="text-xs text-muji-muted font-mono" id="stepCounterLabel">步驟 1 / 3 · 專注放鬆</span>
+              <h3 class="font-zen font-bold text-xl text-muji-primary mt-0.5" id="exerciseName">斜方肌側向牽引拉伸</h3>
+            </div>
+            <div class="text-right">
+              <span class="text-xs text-muji-muted block font-zen">目標時長</span>
+              <span class="font-zen font-bold text-sm text-muji-accent flex items-center gap-1 justify-end">
+                <i data-lucide="timer" class="w-3.5 h-3.5"></i> 15 分鐘完整課表
+              </span>
+            </div>
+          </div>
+
+          <!-- Central Arena: Clear Demonstrative Visual + Countdown Ring -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center my-6">
+            
+            <!-- 1. Concrete Anatomical Demonstration Canvas -->
+            <div class="w-full h-56 bg-muji-bg rounded-2xl border border-muji-primary/10 flex flex-col items-center justify-center p-3 relative overflow-hidden">
+              <span class="absolute top-2.5 left-3 text-[10px] uppercase font-bold text-muji-primary/70 tracking-wider flex items-center gap-1">
+                <i data-lucide="activity" class="w-3 h-3 text-muji-accent"></i> 動作動態圖解
+              </span>
+              
+              <!-- Dynamic SVG Demonstration Box -->
+              <div id="animationContainer" class="w-full h-full flex items-center justify-center pt-2">
+                <!-- Injected SVG -->
+              </div>
+
+              <!-- Stretch Sensation & Breath Hint Badge -->
+              <div class="absolute bottom-2 inset-x-2 text-center flex items-center justify-between px-2 text-[10px]">
+                <span class="text-muji-accent font-zen font-medium flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-muji-accent inline-block"></span>
+                  <span id="stretchFocusPart">拉伸受力感：側頸斜方肌</span>
+                </span>
+                <span class="text-muji-primary/80 font-zen">
+                  呼吸：吸氣延展 · 吐氣加深
+                </span>
+              </div>
+            </div>
+
+            <!-- 2. Minimalist Single-User Countdown Timer -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="relative w-44 h-44 flex items-center justify-center">
+                <svg class="w-full h-full" viewBox="0 0 160 160">
+                  <circle cx="80" cy="80" r="70" stroke="#E5E4DE" stroke-width="8" fill="none"/>
+                  <circle id="timerProgressCircle" cx="80" cy="80" r="70" stroke="#D08C60" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="0" class="timer-circle-path"/>
+                </svg>
+                
+                <div class="absolute flex flex-col items-center text-center">
+                  <span class="text-[10px] uppercase tracking-widest text-muji-muted font-medium" id="timerStateDesc">動作保持</span>
+                  <span id="timerDisplay" class="font-zen font-bold text-4xl text-muji-primary tracking-tight">00:45</span>
+                  <span class="text-[10px] text-muji-accent mt-0.5 font-zen" id="stepPaceDesc">平穩深呼吸</span>
+                </div>
+              </div>
+
+              <!-- Timer Controls -->
+              <div class="flex items-center gap-3 mt-4">
+                <button onclick="prevStep()" title="上一步驟" class="w-10 h-10 rounded-xl bg-muji-bg text-muji-primary hover:bg-muji-light transition-all flex items-center justify-center border border-muji-primary/10 active:scale-95">
+                  <i data-lucide="skip-back" class="w-4 h-4"></i>
+                </button>
+                <button id="btnPlayPause" onclick="toggleTimer()" class="px-6 py-2.5 rounded-2xl bg-muji-primary text-white hover:bg-muji-dark font-zen text-sm font-medium shadow-xs transition-all flex items-center gap-2 active:scale-95">
+                  <i id="playIcon" data-lucide="play" class="w-4 h-4 fill-white"></i>
+                  <span id="playLabel">開始伸展</span>
+                </button>
+                <button onclick="nextStep()" title="下一步驟" class="w-10 h-10 rounded-xl bg-muji-bg text-muji-primary hover:bg-muji-light transition-all flex items-center justify-center border border-muji-primary/10 active:scale-95">
+                  <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Movement Instruction: 1-2-3 Formula -->
+          <div class="bg-muji-light/60 rounded-2xl p-4 border border-muji-primary/10">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-zen text-xs font-bold text-muji-primary flex items-center gap-1.5">
+                <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-muji-accent"></i> 動作 1-2-3 簡易口訣
+              </h4>
+              <span class="text-[10px] text-muji-muted" id="cueFormula">立脊 · 側傾 · 沉肩</span>
+            </div>
+            <ul class="text-xs text-muji-ink/90 space-y-1.5 leading-relaxed font-sans" id="exerciseInstructions">
+              <!-- Dynamically loaded on each step change -->
+            </ul>
+          </div>
+
+          <!-- Session Completion Action -->
+          <div class="mt-5 pt-4 border-t border-muji-primary/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-xs text-muji-muted flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>完成伸展即彈出體態警示與防痛指南，並解鎖專屬貼圖</span>
+            </div>
+            <button onclick="triggerWorkoutCompletion()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-muji-accent text-white font-zen text-xs sm:text-sm font-medium hover:opacity-90 active:scale-95 transition-all shadow-xs flex items-center justify-center gap-2">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              <span>完成本日伸展</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= TAB 2: 預告與日誌 (TOMORROW PREVIEW & LOGS) ================= -->
+    <section id="tab-records" class="hidden space-y-6">
+      
+      <!-- Metrics Overview -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">累計修行天數</span>
+          <span class="font-zen font-bold text-3xl text-muji-primary my-1 block" id="statDaysCount">1</span>
+          <span class="text-[11px] text-muji-accent">日拱一卒 · 經脈自通</span>
+        </div>
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">累計伸展時長</span>
+          <span class="font-zen font-bold text-3xl text-muji-primary my-1 block" id="statMinsCount">15 <span class="text-base font-normal">分鐘</span></span>
+          <span class="text-[11px] text-muji-accent">每回 15 分鐘達標</span>
+        </div>
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">身心狀態評價</span>
+          <span class="font-zen font-bold text-xl text-muji-primary my-2 block">氣血充盈 · 輕盈</span>
+          <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">持續養生中</span>
+        </div>
+      </div>
+
+      <!-- Tomorrow's Smart Prediction Card (Moved here to declutter page 1) -->
+      <div class="muji-card rounded-3xl p-5 sm:p-6 border-l-4 border-l-muji-primary">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2 text-muji-primary">
+            <div class="p-1.5 rounded-lg bg-muji-primary/10 text-muji-primary">
+              <i data-lucide="sunrise" class="w-4 h-4"></i>
+            </div>
+            <h4 class="font-zen font-bold text-sm sm:text-base">明日伸展預告 · 筋膜力學智能推薦</h4>
+          </div>
+          <span class="text-[11px] text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded-full font-medium">拮抗鏈調和</span>
+        </div>
+
+        <div class="bg-muji-bg p-4 rounded-2xl mt-2 border border-muji-primary/5 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-zen font-bold text-muji-primary text-sm" id="tomorrowRecZoneName">明日推薦部位：上背與膏肓（膏肓穴）</span>
+            <button onclick="previewTomorrowRoutine()" class="text-xs text-white bg-muji-primary px-3 py-1 rounded-lg font-zen hover:bg-muji-dark transition-all flex items-center gap-1">
+              <span>立即切換練習</span>
+              <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </button>
+          </div>
+          <p class="text-muji-ink/80 leading-relaxed text-xs" id="tomorrowRecReason">
+            根據人體肌筋膜前後鏈連鎖原理：今日重點放鬆了肩頸部，明日建議延展「上背與膏肓」打開胸廓拮抗肌，避免前緊後鬆再度引發肩頸代償。
+          </p>
+        </div>
+      </div>
+
+      <!-- Workout History Timeline Card -->
+      <div class="muji-card rounded-3xl p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-zen font-bold text-base text-muji-primary flex items-center gap-2">
+            <i data-lucide="calendar-check-2" class="w-4 h-4 text-muji-accent"></i> 歷史伸展修行軌跡
+          </h3>
+          <span class="text-xs text-muji-muted">詳細紀錄每日特定伸展部位</span>
+        </div>
+
+        <div id="workoutLogTimeline" class="space-y-3">
+          <!-- Dynamically populated from localStorage -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= TAB 3: 貼圖圖鑑 (STICKER ALBUM) ================= -->
+    <section id="tab-album" class="hidden space-y-6">
+      
+      <div class="muji-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+        <div class="max-w-xl mx-auto space-y-2">
+          <span class="text-xs uppercase tracking-widest text-muji-accent font-bold">Chibi TCM Sticker Album</span>
+          <h2 class="font-zen font-bold text-2xl text-muji-primary">針灸小童日常圖鑑</h2>
+          <p class="text-xs sm:text-sm text-muji-muted leading-relaxed">
+            每一次完成 15 分鐘和漢伸展，即可獲得一位針灸小童的日常裝扮貼圖。收集滿載元氣與健康！
+          </p>
+          <div class="inline-flex items-center gap-2 bg-muji-bg px-4 py-1.5 rounded-full border border-muji-primary/10 mt-3 text-xs">
+            <span class="text-muji-primary font-zen font-bold">已收集：<span id="collectedCount">1</span> / 6 枚</span>
+            <span class="text-muji-muted">· 保持每日鍛鍊習慣</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="stickerGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <!-- Rendered by JS -->
+      </div>
+
+    </section>
+
+    <!-- ================= TAB 3: 伸展日誌 (DETAILED LOGS & RECORDS) ================= -->
+    <section id="tab-records" class="hidden space-y-6">
+      
+      <!-- Metrics Overview -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">累計修行天數</span>
+          <span class="font-zen font-bold text-3xl text-muji-primary my-1 block" id="statDaysCount">1</span>
+          <span class="text-[11px] text-muji-accent">日拱一卒 · 經脈自通</span>
+        </div>
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">累計伸展時長</span>
+          <span class="font-zen font-bold text-3xl text-muji-primary my-1 block" id="statMinsCount">15 <span class="text-base font-normal">分鐘</span></span>
+          <span class="text-[11px] text-muji-accent">每回 15 分鐘達標</span>
+        </div>
+        <div class="muji-card rounded-3xl p-5 text-center">
+          <span class="text-xs text-muji-muted block font-zen">身心狀態評價</span>
+          <span class="font-zen font-bold text-xl text-muji-primary my-2 block">氣血充盈 · 輕盈</span>
+          <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">持續養生中</span>
+        </div>
+      </div>
+
+      <!-- Workout History Timeline Card -->
+      <div class="muji-card rounded-3xl p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-zen font-bold text-base text-muji-primary flex items-center gap-2">
+            <i data-lucide="calendar-check-2" class="w-4 h-4 text-muji-accent"></i> 歷史伸展修行軌跡
+          </h3>
+          <span class="text-xs text-muji-muted">詳細紀錄每日特定伸展部位</span>
+        </div>
+
+        <div id="workoutLogTimeline" class="space-y-3">
+          <!-- Dynamically populated from localStorage -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= POSTURE HAZARDS MODAL (完成後的體態警示與防痛錦囊) ================= -->
+  <div id="hazardModal" class="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="muji-card rounded-3xl max-w-lg w-full p-6 sm:p-7 text-left transform transition-all duration-300">
+      
+      <div class="flex items-center gap-3 border-b border-muji-primary/10 pb-4 mb-4">
+        <div class="w-10 h-10 rounded-2xl bg-muji-accent/15 text-muji-accent flex items-center justify-center shrink-0">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-[11px] uppercase font-bold text-muji-accent tracking-widest">Post-Session Posture Warning</span>
+          <h3 class="font-zen font-bold text-lg text-muji-primary" id="modalHazardHead">日常體態警示與避坑錦囊</h3>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- 1. The Posture That Causes Pain -->
+        <div class="bg-muji-bg p-4 rounded-2xl border border-muji-primary/5">
+          <span class="font-zen font-bold text-muji-accent flex items-center gap-1.5 text-xs mb-1" id="modalHazardTitle">
+            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> 【什麼姿勢容易讓這裡疼痛？】
+          </span>
+          <p class="text-muji-ink/90 leading-relaxed font-sans text-xs" id="modalHazardDesc">
+            頭部前傾每增加15度，頸椎負載增加5~10公斤。長期低頭導致斜方肌代償緊繃、引發膏肓痛。
+          </p>
+        </div>
+
+        <!-- 2. Daily Ergonomic & Preventive Advice -->
+        <div class="bg-muji-light/50 p-4 rounded-2xl border border-muji-primary/10">
+          <span class="font-zen font-bold text-muji-primary flex items-center gap-1.5 text-xs mb-1" id="modalPreventionTitle">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-muji-primary"></i> 【日常改善與防痛錦囊】
+          </span>
+          <p class="text-muji-ink/90 leading-relaxed font-sans text-xs" id="modalPreventionDesc">
+            使用電腦時墊高螢幕至視線水平；工作每45分鐘做「靠牆微收下巴」，讓耳垂垂直對齊肩峰。
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-3 flex justify-end">
+        <button onclick="confirmHazardModal()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-muji-primary text-white font-zen text-xs sm:text-sm font-medium hover:bg-muji-dark transition-all flex items-center justify-center gap-2 shadow-xs active:scale-95">
+          <span>我記住了，領取今日修行貼圖</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= STICKER REWARD UNLOCKED MODAL ================= -->
+  <div id="rewardModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="muji-card rounded-3xl max-w-sm w-full p-6 text-center transform transition-all duration-300">
+      <div class="w-12 h-12 rounded-full bg-muji-accent/15 text-muji-accent flex items-center justify-center mx-auto mb-2">
+        <i data-lucide="gift" class="w-6 h-6"></i>
+      </div>
+      <span class="text-xs uppercase tracking-widest text-muji-accent font-bold">Sticker Reward</span>
+      <h3 class="font-zen font-bold text-xl text-muji-primary mt-1">恭喜獲得和漢小童貼圖！</h3>
+      
+      <!-- Unlocked Sticker Showcase Canvas -->
+      <div id="unlockedStickerPreview" class="my-4 p-4 bg-muji-bg rounded-2xl flex items-center justify-center min-h-[150px]">
+        <!-- Dynamic Sticker SVG -->
+      </div>
+
+      <h4 id="unlockedStickerName" class="font-zen font-bold text-base text-muji-primary">扎針放鬆小銅人</h4>
+      <p id="unlockedStickerDesc" class="text-xs text-muji-muted mt-1 px-3">今日15分鐘跟練大獲全勝，筋絡舒暢！</p>
+
+      <div class="mt-6 flex gap-3">
+        <button onclick="closeRewardModal(); switchTab('album');" class="flex-1 py-2.5 rounded-xl bg-muji-primary text-white font-zen text-xs font-medium hover:bg-muji-dark transition-all">
+          查看貼圖圖鑑
+        </button>
+        <button onclick="closeRewardModal()" class="px-4 py-2.5 rounded-xl bg-muji-bg text-muji-muted hover:text-muji-primary font-zen text-xs transition-all">
+          繼續修煉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-muji-primary/10 bg-white/60 py-6 text-center text-xs text-muji-muted">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-zen font-bold text-muji-primary">素肌伸展 · 日系無印和漢養生誌</span>
+        <span>© 2026</span>
+      </div>
+      <p class="text-[11px]">溫柔呼吸 · 筋長一寸 · 告別久坐痠痛</p>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT APPLICATION CORE ================= -->
+  <script>
+    /* =====================================================================
+     * 1. 8-ZONE COMPREHENSIVE STRETCH & POSTURE DATA
+     * ===================================================================== */
+    const STRETCH_DATA = {
+      head: {
+        id: 'head',
+        name: '頭部與太陽穴',
+        point: '百會穴 · 太陽穴 · 風池穴',
+        shortNote: '用腦過度與螢幕藍光刺激導致頭皮筋膜緊繃，氣血淤滯引發偏頭脹痛。',
+        hazardTitle: '【地雷姿勢】緊咬牙關、皺眉瞇眼看螢幕',
+        hazardDesc: '顳顎關節持續收緊會帶動顳肌與枕下肌群痙攣，使頭部血液回流受阻，加重頭痛昏沉。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '舌尖輕抵上顎讓咬肌自然放鬆；每用眼30分鐘眺望6米外綠意，順時針按揉風池穴。',
+        tomorrowTarget: 'neck',
+        tomorrowReason: '中醫經絡頭項相連：今日疏通了頭部百會與風池，明日建議順延膀胱經與膽經伸展「肩頸部位」，防止上焦氣血再度鬱積。',
+        steps: [
+          {
+            name: '百會與頭皮筋膜十指梳理',
+            duration: 45,
+            animKey: 'head-comb',
+            focusArea: '頭頂百會穴與顳側膽經',
+            formula: '指腹如梳 · 由前向後 · 均勻呼吸',
+            tips: [
+              '• 雙手十指微屈如梳，指腹從前額髮際線開始。',
+              '• 緩慢向後梳理至後腦風池穴，帶點微酸脹感。',
+              '• 深長呼吸，梳理頭部緊繃微循環，平撫思緒。'
+            ]
+          },
+          {
+            name: '風池穴雙拇指指壓托引',
+            duration: 45,
+            animKey: 'head-lift',
+            focusArea: '後枕骨下風池穴與枕下肌群',
+            formula: '雙手托枕 · 拇指點揉 · 微仰牽引',
+            tips: [
+              '• 雙手十指扣於後腦，雙手拇指按揉枕骨兩側凹陷風池穴。',
+              '• 吸氣時頭部微仰，吐氣時拇指向上輕微托引。',
+              '• 緩解長時間注視螢幕造成的後腦悶脹。'
+            ]
+          },
+          {
+            name: '太陽穴緩慢螺旋繞揉放鬆',
+            duration: 45,
+            animKey: 'head-temple',
+            focusArea: '雙側太陽穴與眼眶周圍',
+            formula: '輕貼肌膚 · 順時繞環 · 眉心舒展',
+            tips: [
+              '• 食指與中指併攏，輕輕貼放於兩側太陽穴。',
+              '• 順時針緩慢畫圓打圈，力道溫和沉靜。',
+              '• 閉上雙眼，想像緊繃的眉心漸漸融化舒展。'
+            ]
+          }
+        ]
+      },
+      neck: {
+        id: 'neck',
+        name: '肩頸部位',
+        point: '肩井穴 · 大椎穴',
+        shortNote: '長時間低頭打字致使斜方肌過度拉長緊繃，牽連至頭部引發沈重感。',
+        hazardTitle: '【地雷姿勢】低頭滑手機（烏龜頸頸椎前伸）',
+        hazardDesc: '頭部每前傾15度，頸椎負載相當於增加5~10公斤，長期引發斜方肌肥厚僵硬與頸源性頭痛。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '使用電腦時將螢幕墊高至視線水平；每隔40分鐘做一次「收下巴」，讓耳垂垂直對齊肩峰。',
+        tomorrowTarget: 'back',
+        tomorrowReason: '根據人體力學拮抗肌原理：今日放鬆了前頸與斜方肌，明日建議伸展「上背與膏肓」打開胸椎，避免含胸再度拉扯頸椎。',
+        steps: [
+          {
+            name: '斜方肌側向牽引拉伸',
+            duration: 45,
+            animKey: 'neck-tilt',
+            focusArea: '單側上斜方肌與頸夾肌',
+            formula: '端坐 · 側傾 · 沉肩',
+            tips: [
+              '• 坐姿保持脊柱延展，右手放於頭部左耳上方。',
+              '• 吐氣時輕柔帶頭向右側肩膀傾斜，左肩膀主動下沉。',
+              '• 感受左側頸肩深層牽拉感，保持呼吸均勻45秒。'
+            ]
+          },
+          {
+            name: '45度斜向低頭拉伸提肩胛肌',
+            duration: 45,
+            animKey: 'neck-diag',
+            focusArea: '提肩胛肌與後背連結處',
+            formula: '轉角 · 低頭 · 垂臂',
+            tips: [
+              '• 頭部轉向右側45度，眼神望向右下方口袋方向。',
+              '• 右手搭在後腦勺，吐氣時輕輕將下巴引向下鎖骨。',
+              '• 感受後頸深處緊繃點被拉開，換邊重複。'
+            ]
+          },
+          {
+            name: '肩部沉降與大椎穴後縮循環',
+            duration: 45,
+            animKey: 'neck-roll',
+            focusArea: '大椎穴與雙側肩峰',
+            formula: '吸氣聳肩 · 吐氣畫圓下沉',
+            tips: [
+              '• 吸氣雙肩盡力靠近耳朵，感受短暫收緊。',
+              '• 吐氣時雙肩向後向下拉開，讓肩胛骨自然下沉歸位。',
+              '• 重複畫圓釋放肩井穴凝滯的氣血。'
+            ]
+          }
+        ]
+      },
+      wrist: {
+        id: 'wrist',
+        name: '手腕與前臂',
+        point: '內關穴 · 大陵穴 · 外關穴',
+        shortNote: '鍵盤打字與滑鼠點擊使腕管正中神經受壓，前臂屈肌群痙攣。',
+        hazardTitle: '【地雷姿勢】腕關節背屈壓在桌緣滑鼠手',
+        hazardDesc: '手腕長時間壓在硬桌邊會壓迫腕管內的屈肌腱與正中神經，導致手指麻木、腕關節活動度受限。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '使用柔軟滑鼠護腕墊支撐手根；鍵盤輸入時保持手腕平直，勿長時間向兩側偏折。',
+        tomorrowTarget: 'neck',
+        tomorrowReason: '上肢神經皆由頸椎神經根發出：今日伸展了末端手腕與前臂，明日推薦伸展「肩頸與斜角肌」，促進上肢神經通路整條暢通。',
+        steps: [
+          {
+            name: '前臂屈肌群掌心向上牽拉',
+            duration: 45,
+            animKey: 'wrist-flexor',
+            focusArea: '前臂腹側肌群與內關穴',
+            formula: '伸臂 · 勾指 · 後扳',
+            tips: [
+              '• 左手臂向前伸直，掌心朝前、指尖朝下。',
+              '• 右手握住左手四指，吐氣時輕輕向胸前扳動。',
+              '• 感受手腕內側與前臂深層拉伸，保持手肘微屈勿鎖死。'
+            ]
+          },
+          {
+            name: '手背朝前伸肌群反向拉伸',
+            duration: 45,
+            animKey: 'wrist-extensor',
+            focusArea: '前臂背側肌群與外關穴',
+            formula: '掌心朝內 · 屈腕 · 輕壓',
+            tips: [
+              '• 手臂向前伸直，手腕自然垂下，手背朝前。',
+              '• 另一手輕壓手背下方，吐氣時將指尖引向身體方向。',
+              '• 放鬆長時間使用滑鼠而緊繃的外關穴區域。'
+            ]
+          },
+          {
+            name: '腕關節八字波浪繞環',
+            duration: 45,
+            animKey: 'wrist-roll',
+            focusArea: '腕骨關節囊與大陵穴',
+            formula: '十指合扣 · 如水波流動',
+            tips: [
+              '• 十指交叉合握成拳，放鬆手腕。',
+              '• 順時針與逆時針緩慢畫「∞」字形波浪旋轉。',
+              '• 喚醒關節滑液分泌，消除腕關節卡卡異音。'
+            ]
+          }
+        ]
+      },
+      back: {
+        id: 'back',
+        name: '上背與膏肓',
+        point: '膏肓穴 · 大椎穴 · 督脈',
+        shortNote: '常言「病入膏肓」，實為肩胛骨內側菱形肌與胸椎僵硬引發的深層酸痛。',
+        hazardTitle: '【地雷姿勢】含胸駝背、窩在軟沙發打字',
+        hazardDesc: '背部肌肉長時間處於拉長被動狀態，導致肩胛骨內側筋膜缺血，胸椎旋轉與後伸活動度喪失。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '坐姿時在背後墊小靠枕；每小時做一次「抱胸展翅」擴胸呼吸，讓肩胛骨後夾收攏。',
+        tomorrowTarget: 'waist',
+        tomorrowReason: '根據脊椎力學序列傳導：今日釋放了上背胸椎與膏肓穴，明日建議往下伸展「腰部腰陽關」，完成整條督脈的放鬆循環。',
+        steps: [
+          {
+            name: '抱臂肩胛骨菱形肌延展',
+            duration: 45,
+            animKey: 'back-hug',
+            focusArea: '肩胛內側緣膏肓穴區域',
+            formula: '交叉抱肩 · 吸氣拱背 · 呼氣沉肩',
+            tips: [
+              '• 雙臂於胸前交叉，雙手抱住對側肩胛骨外側。',
+              '• 吸氣將氣送入後背，吐氣時低頭微拱背部成圓弧。',
+              '• 感受兩片肩胛骨被自然向外拉開的透氣感。'
+            ]
+          },
+          {
+            name: '椅背胸椎向後伸展展開',
+            duration: 45,
+            animKey: 'back-ext',
+            focusArea: '胸椎段與胸骨前側',
+            formula: '雙手托頸 · 倚靠椅背 · 胸口迎光',
+            tips: [
+              '• 坐於穩固椅上，雙手托住後頸給予保護。',
+              '• 吐氣時以椅背為支點，胸口緩慢向天花板打開展延。',
+              '• 擴展胸腔，解除心包經與督脈鬱結。'
+            ]
+          },
+          {
+            name: '貓牛式背脊波浪流動',
+            duration: 45,
+            animKey: 'back-catcow',
+            focusArea: '整條脊椎督脈與豎脊肌',
+            formula: '吸氣塌腰展胸 · 呼氣拱背收腹',
+            tips: [
+              '• 雙手扶膝或扶桌，吸氣時抬頭展開鎖骨與胸口。',
+              '• 吐氣時由尾骨引導，一節節將背部拱起低頭。',
+              '• 像貓咪伸懶腰般流動，釋放背部壓力。'
+            ]
+          }
+        ]
+      },
+      waist: {
+        id: 'waist',
+        name: '腰部腰陽關',
+        point: '腰陽關 · 腎俞穴 · 命門',
+        shortNote: '腰為腎之府。長期久坐使腰椎間盤承受高剪力，豎脊肌持續痙攣。',
+        hazardTitle: '【地雷姿勢】翹二郎腿、半躺半靠床頭滑平板',
+        hazardDesc: '骨盆單側旋轉引發腰方肌張力失衡；腰椎弧度消失，椎間盤承受站姿2倍以上的剪切壓力。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '戒除翹腳習慣，雙腳踩實地面；在第3至第5腰椎處放置直徑約10公分的支撐腰靠。',
+        tomorrowTarget: 'hips',
+        tomorrowReason: '腰髖力學密不可分（腰骨盆節律）：今日完成了腰部減壓，明日建議針對「骨盆與髖部」進行伸展，釋放骨盆對腰椎的拉扯力。',
+        steps: [
+          {
+            name: '坐姿軀幹溫和螺旋旋轉',
+            duration: 45,
+            animKey: 'waist-twist',
+            focusArea: '腰方肌與胸腰筋膜',
+            formula: '立脊向上 · 轉向椅背 · 腹部深呼吸',
+            tips: [
+              '• 坐端正雙腳平貼地面，右手置於左膝外側。',
+              '• 吸氣向上延展頭頂，吐氣時帶動胸腹緩慢轉向左後方。',
+              '• 感受後腰腎俞穴處的深層溫熱扭轉。'
+            ]
+          },
+          {
+            name: '俯臥或跪姿嬰兒式腰椎牽引',
+            duration: 45,
+            animKey: 'waist-child',
+            focusArea: '下背豎脊肌與腰陽關',
+            formula: '臀坐腳跟 · 指尖前爬 · 額頭放鬆',
+            tips: [
+              '• 跪姿雙膝微開，臀部坐回腳跟，雙臂向前伸展。',
+              '• 前額輕點桌面或地墊，胸腹放鬆下沉。',
+              '• 將呼吸深入下背部命門與腰陽關，拉長腰椎間隙。'
+            ]
+          },
+          {
+            name: '站姿側屈腰方肌深層拉伸',
+            duration: 45,
+            animKey: 'waist-side',
+            focusArea: '側腰腰方肌與膽經',
+            formula: '舉臂上指 · 骨盆微推 · 側向延展',
+            tips: [
+              '• 站姿雙腳與肩同寬，右手臂向上高舉。',
+              '• 吐氣時身體向左側彎曲，骨盆微微向右推。',
+              '• 感受右側腰腹間隙被一節節拉開。'
+            ]
+          }
+        ]
+      },
+      hips: {
+        id: 'hips',
+        name: '骨盆與髖部',
+        point: '環跳穴 · 居髎穴 · 梨狀肌',
+        shortNote: '髖關節周圍肌群緊縮，常引發坐骨神經刺激與骨盆前傾假翹臀。',
+        hazardTitle: '【地雷姿勢】坐姿向前滑坐（葛優躺）',
+        hazardDesc: '骨盆後傾壓迫薦椎與坐骨神經通道，梨狀肌長期水腫肥厚引發下肢放射性酸脹麻。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '坐姿時確認坐骨正對椅面；每坐45分鐘務必起身原地活動髖關節1分鐘。',
+        tomorrowTarget: 'legs',
+        tomorrowReason: '下肢動力鏈承上啟下：今日打開了深層臀肌與環跳穴，明日推薦伸展「膝蓋腿部（委中穴）」，使氣血沿足太陽膀胱經順暢下行。',
+        steps: [
+          {
+            name: '坐姿數字4字梨狀肌釋放',
+            duration: 45,
+            animKey: 'hip-figure4',
+            focusArea: '臀大肌深層梨狀肌與環跳穴',
+            formula: '腳踝擱膝 · 背脊打直 · 以髖前折',
+            tips: [
+              '• 端坐椅上，將右腳腳踝橫放於左膝上方呈「4」字。',
+              '• 保持背部平直，吐氣時以髖部為折疊點緩慢向前俯身。',
+              '• 感受右臀深處環跳穴酸脹釋放，維持均勻呼吸。'
+            ]
+          },
+          {
+            name: '低弓箭步髂腰肌前側延展',
+            duration: 45,
+            animKey: 'hip-lunge',
+            focusArea: '前髖髂腰肌與腹股溝',
+            formula: '前屈後展 · 骨盆下沉 · 脊柱拔高',
+            tips: [
+              '• 前腳屈膝踩地，後腿膝蓋著地向後延展。',
+              '• 雙手扶於前膝，骨盆向下向前輕推打開腹股溝。',
+              '• 感受緊繃的髂腰肌被充分拉長，緩解骨盆前傾。'
+            ]
+          },
+          {
+            name: '坐姿開胯蝴蝶式骨盆調和',
+            duration: 45,
+            animKey: 'hip-butterfly',
+            focusArea: '大腿內側內收肌群與會陰',
+            formula: '腳掌合十 · 膝蓋沈降 · 輕微微振',
+            tips: [
+              '• 坐姿雙腳腳掌合十併攏，雙手輕握腳尖。',
+              '• 膝蓋自然向兩側沉降，像蝴蝶翅膀般輕微震動。',
+              '• 促進骨盆腔血液循環與髖關節柔韌度。'
+            ]
+          }
+        ]
+      },
+      legs: {
+        id: 'legs',
+        name: '腿部與膝部',
+        point: '委中穴 · 足三里 · 承山穴',
+        shortNote: '「腰背委中求」。大腿後側膕繩肌與小腿緊繃常回傳造成全身筋膜鏈僵硬。',
+        hazardTitle: '【地雷姿勢】雙腿交叉盤坐、久坐膝關節深屈',
+        hazardDesc: '膝關節長時間屈曲超過90度會阻礙膕窩血管回流，使委中穴氣血受阻，誘發小腿抽筋水腫。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '坐姿時適度向前伸腿放鬆膝關節；睡前可抬高小腿10分鐘幫助靜脈回流。',
+        tomorrowTarget: 'ankles',
+        tomorrowReason: '下肢足底末梢循環：今日梳理了小腿後側與委中穴，明日推薦伸展「腳踝太谿與崑崙穴」，達到足底筋膜的終極放鬆。',
+        steps: [
+          {
+            name: '坐姿前屈大腿後側膕繩肌拉伸',
+            duration: 45,
+            animKey: 'leg-hamstring',
+            focusArea: '膕繩肌群與膕窩委中穴',
+            formula: '伸腿勾腳 · 背平前傾 · 指探腳尖',
+            tips: [
+              '• 坐於椅緣，右腿向前伸直腳跟著地，腳尖回勾。',
+              '• 背部打直，雙手沿大腿輕柔前推探向腳踝。',
+              '• 感受膝後窩委中穴附近的深層延展。'
+            ]
+          },
+          {
+            name: '扶牆弓步小腿腓腸肌深展',
+            duration: 45,
+            animKey: 'leg-calf',
+            focusArea: '小腿肚腓腸肌與承山穴',
+            formula: '後腳踩實 · 腳尖朝前 · 重心前移',
+            tips: [
+              '• 雙手扶牆，後腿向後邁大步且腳後跟牢牢踩地。',
+              '• 前腿彎曲重心前移，後腿保持完全伸直。',
+              '• 感受小腿肚承山穴區域拉長發熱。'
+            ]
+          },
+          {
+            name: '足三里與小腿前側輕按喚醒',
+            duration: 45,
+            animKey: 'leg-shin',
+            focusArea: '脛骨前肌與足三里穴',
+            formula: '外膝四指 · 大指點揉 · 提足背',
+            tips: [
+              '• 坐姿屈膝，於外膝眼下方約四橫指處找到足三里。',
+              '• 配合腳踝上勾與下壓，大拇指給予適度點揉酸脹感。',
+              '• 調和脾胃與下肢氣血活力。'
+            ]
+          }
+        ]
+      },
+      ankles: {
+        id: 'ankles',
+        name: '腳踝與足底',
+        point: '太谿穴 · 崑崙穴 · 湧泉穴',
+        shortNote: '足為人之根。腳踝活動度不足會向上影響膝蓋與髖關節力學排列。',
+        hazardTitle: '【地雷姿勢】穿不合腳硬鞋久站、內八外八走路',
+        hazardDesc: '足弓塌陷或腳踝僵直使衝擊力無法被足底筋膜吸收，直衝膝關節與腰椎。',
+        preventionTitle: '【日常防痛錦囊】',
+        preventionDesc: '踩網球滾動腳底湧泉穴；日常走路時專注腳跟先著地、腳趾蹬地的平穩步態。',
+        tomorrowTarget: 'head',
+        tomorrowReason: '中醫「上病下治，下病上治」：今日調理了足底與太谿穴，明日推薦回歸「頭部百會穴」做全身經絡圓滿巡迴。',
+        steps: [
+          {
+            name: '腳踝內外踝太谿崑崙環繞',
+            duration: 45,
+            animKey: 'ankle-circle',
+            focusArea: '踝關節囊、內側太谿與外側崑崙',
+            formula: '懸空順轉 · 畫大圓弧 · 逆轉舒筋',
+            tips: [
+              '• 單腿屈膝懸空，腳踝最大幅度順時針慢速畫圈。',
+              '• 再逆時針旋轉，充分活動內外腳踝關節囊。',
+              '• 促進足部血液與淋巴循環。'
+            ]
+          },
+          {
+            name: '腳趾抓毛巾與湧泉穴張合',
+            duration: 45,
+            animKey: 'ankle-spread',
+            focusArea: '足底筋膜與湧泉穴',
+            formula: '五趾抓拳 · 用力張開 · 踩地踏實',
+            tips: [
+              '• 坐姿將腳趾全力收緊如握拳5秒。',
+              '• 隨後將五根腳趾大幅度張開，刺激湧泉穴。',
+              '• 活絡足底微細肌群，預防足底筋膜炎。'
+            ]
+          },
+          {
+            name: '腳後跟阿基里斯腱跟腱牽拉',
+            duration: 45,
+            animKey: 'ankle-achilles',
+            focusArea: '跟腱、比目魚肌與太谿穴',
+            formula: '腳跟著地 · 前掌踏台 · 身體微前壓',
+            tips: [
+              '• 利用門檻或瑜伽磚，前腳掌踏於高處，腳跟著地。',
+              '• 身體重心平穩前移，感受腳後跟腱與深層小腿拉伸。',
+              '• 保持平穩呼吸，換腳重複。'
+            ]
+          }
+        ]
+      }
+    };
+
+    /* =====================================================================
+     * 2. COLLECTIBLE CHIBI STICKERS (6 Total)
+     * ===================================================================== */
+    const CHIBI_STICKERS = [
+      {
+        id: 'stk_1',
+        name: '扎針放鬆小銅人',
+        desc: '頭頂銀針微風擺動，一念放下百憂解。',
+        unlocked: true,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="60" cy="18" r="9" fill="#006284"/>
+            <line x1="50" y1="16" x2="70" y2="20" stroke="#D08C60" stroke-width="2.5"/>
+            <circle cx="60" cy="56" r="30" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <line x1="42" y1="36" x2="34" y2="24" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="33" cy="22" r="2" fill="#D08C60"/>
+            <line x1="78" y1="36" x2="86" y2="24" stroke="#D08C60" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="87" cy="22" r="2" fill="#D08C60"/>
+            <path d="M46 56 Q52 50 56 56" stroke="#006284" stroke-width="2" fill="none"/>
+            <path d="M64 56 Q68 50 74 56" stroke="#006284" stroke-width="2" fill="none"/>
+            <circle cx="42" cy="62" r="3.5" fill="#D08C60" opacity="0.4"/>
+            <circle cx="78" cy="62" r="3.5" fill="#D08C60" opacity="0.4"/>
+            <path d="M57 66 Q60 70 63 66" stroke="#006284" stroke-width="2" fill="none"/>
+            <path d="M38 86 Q60 80 82 86 L86 100 Q60 106 34 100 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+            <circle cx="60" cy="90" r="2" fill="#D08C60"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk_2',
+        name: '抱艾條小溫童',
+        desc: '懷抱溫陽小艾草，溫暖下焦與小腹寒氣。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="60" cy="50" r="26" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <path d="M48 50 Q53 45 56 50" stroke="#006284" stroke-width="2" fill="none"/>
+            <path d="M64 50 Q67 45 72 50" stroke="#006284" stroke-width="2" fill="none"/>
+            <circle cx="45" cy="56" r="3" fill="#D08C60" opacity="0.4"/>
+            <circle cx="75" cy="56" r="3" fill="#D08C60" opacity="0.4"/>
+            <rect x="38" y="70" width="44" height="15" rx="7.5" fill="#D8CFBE" stroke="#006284" stroke-width="2" transform="rotate(-15 60 77)"/>
+            <circle cx="34" cy="74" r="5" fill="#D08C60"/>
+            <path d="M28 72 Q22 62 26 54 Q30 46 25 38" stroke="#D08C60" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk_3',
+        name: '刮痧板元氣童',
+        desc: '手持水牛角刮痧板，出痧一身輕。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="56" cy="52" r="26" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <path d="M78 50 C88 40 98 52 86 70 C76 82 72 72 74 62 Z" fill="#006284" stroke="#006284" stroke-width="1.5"/>
+            <circle cx="82" cy="56" r="2.5" fill="#D08C60"/>
+            <circle cx="48" cy="52" r="2" fill="#006284"/>
+            <circle cx="62" cy="52" r="2" fill="#006284"/>
+            <path d="M53 60 Q56 64 59 60" stroke="#006284" stroke-width="2" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk_4',
+        name: '奉茶保溫杯小道',
+        desc: '多喝溫水與枸杞紅棗茶，津液充盈不枯燥。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="60" cy="46" r="25" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <circle cx="52" cy="46" r="2" fill="#006284"/>
+            <circle cx="68" cy="46" r="2" fill="#006284"/>
+            <rect x="50" y="68" width="20" height="30" rx="6" fill="#D08C60" stroke="#006284" stroke-width="2"/>
+            <line x1="50" y1="76" x2="70" y2="76" stroke="#FFFFFF" stroke-width="1.5"/>
+            <path d="M58 64 Q60 58 58 54" stroke="#7A8084" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M63 64 Q65 58 63 54" stroke="#7A8084" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk_5',
+        name: '劈腿大師靈動童',
+        desc: '筋長一寸，壽延十年；拉開大腿內側肝脾腎三經。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="60" cy="40" r="20" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <circle cx="54" cy="40" r="2" fill="#006284"/>
+            <circle cx="66" cy="40" r="2" fill="#006284"/>
+            <path d="M58 46 Q60 50 62 46" stroke="#006284" stroke-width="2" fill="none"/>
+            <path d="M22 84 L98 84" stroke="#006284" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="22" cy="84" r="5" fill="#D08C60"/>
+            <circle cx="98" cy="84" r="5" fill="#D08C60"/>
+            <path d="M50 58 L70 58 L64 82 L56 82 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        id: 'stk_6',
+        name: '太極行雲小尊者',
+        desc: '陰陽和合，以意領氣，全身經絡大周天運行。',
+        unlocked: false,
+        svg: `
+          <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+            <circle cx="60" cy="60" r="52" fill="#FAF8F5" stroke="#006284" stroke-width="2.5"/>
+            <circle cx="60" cy="48" r="24" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+            <circle cx="60" cy="20" r="6" fill="#006284"/>
+            <circle cx="60" cy="20" r="2" fill="#FFFFFF"/>
+            <line x1="50" y1="48" x2="56" y2="48" stroke="#006284" stroke-width="2" stroke-linecap="round"/>
+            <line x1="64" y1="48" x2="70" y2="48" stroke="#006284" stroke-width="2" stroke-linecap="round"/>
+            <path d="M34 66 Q60 52 86 66" stroke="#006284" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <circle cx="34" cy="66" r="4" fill="#D08C60"/>
+            <circle cx="86" cy="66" r="4" fill="#D08C60"/>
+          </svg>
+        `
+      }
+    ];
+
+    /* =====================================================================
+     * 3. STATE & LOCAL STORAGE
+     * ===================================================================== */
+    let currentZone = 'neck';
+    let currentStepIndex = 0;
+    let timerDuration = 45;
+    let timeLeft = 45;
+    let timerInterval = null;
+    let isRunning = false;
+    let isSoundOn = true;
+    let streakCount = 1;
+    let totalMinutes = 15;
+    let checkInDone = false;
+    let workoutLogs = [];
+
+    function loadStorage() {
+      try {
+        const savedStickers = localStorage.getItem('muji_stickers_v2');
+        if (savedStickers) {
+          const unlockedIds = JSON.parse(savedStickers);
+          CHIBI_STICKERS.forEach(stk => {
+            if (unlockedIds.includes(stk.id)) stk.unlocked = true;
+          });
+        }
+        
+        const savedStreak = localStorage.getItem('muji_streak_v2');
+        if (savedStreak) streakCount = parseInt(savedStreak, 10);
+        
+        const savedMins = localStorage.getItem('muji_mins_v2');
+        if (savedMins) totalMinutes = parseInt(savedMins, 10);
+
+        const savedLogs = localStorage.getItem('muji_workout_logs_v2');
+        if (savedLogs) {
+          workoutLogs = JSON.parse(savedLogs);
+        } else {
+          // Default initial friendly sample log
+          workoutLogs = [
+            {
+              dateStr: '2026/11/05 08:30',
+              zoneName: '肩頸部位（肩井穴）',
+              zoneKey: 'neck',
+              duration: 15,
+              note: '頸椎活動度改善，酸脹感消散大半。'
+            }
+          ];
+        }
+
+        const todayKey = 'muji_checkin_' + new Date().toDateString();
+        if (localStorage.getItem(todayKey)) checkInDone = true;
+      } catch (e) {
+        console.warn('Storage read error:', e);
+      }
+    }
+
+    function saveStorage() {
+      try {
+        const unlockedIds = CHIBI_STICKERS.filter(s => s.unlocked).map(s => s.id);
+        localStorage.setItem('muji_stickers_v2', JSON.stringify(unlockedIds));
+        localStorage.setItem('muji_streak_v2', streakCount);
+        localStorage.setItem('muji_mins_v2', totalMinutes);
+        localStorage.setItem('muji_workout_logs_v2', JSON.stringify(workoutLogs));
+        if (checkInDone) {
+          localStorage.setItem('muji_checkin_' + new Date().toDateString(), 'true');
+        }
+      } catch (e) {
+        console.warn('Storage save error:', e);
+      }
+    }
+
+    /* =====================================================================
+     * 4. WEB AUDIO SOUND EFFECTS
+     * ===================================================================== */
+    let audioCtx = null;
+    function playZenTone(type = 'chime') {
+      if (!isSoundOn) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+
+        if (type === 'chime') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(528, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 1.2);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.4);
+          osc.start(now);
+          osc.stop(now + 1.4);
+        } else if (type === 'wood') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(150, now + 0.12);
+          gain.gain.setValueAtTime(0.35, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          osc.start(now);
+          osc.stop(now + 0.14);
+        } else if (type === 'success') {
+          [528, 660, 792].forEach((freq, idx) => {
+            const subOsc = audioCtx.createOscillator();
+            const subGain = audioCtx.createGain();
+            subOsc.connect(subGain);
+            subGain.connect(audioCtx.destination);
+            subOsc.type = 'sine';
+            subOsc.frequency.setValueAtTime(freq, now + idx * 0.16);
+            subGain.gain.setValueAtTime(0.2, now + idx * 0.16);
+            subGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.16 + 1.6);
+            subOsc.start(now + idx * 0.16);
+            subOsc.stop(now + idx * 0.16 + 1.6);
+          });
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      isSoundOn = !isSoundOn;
+      const icon = document.getElementById('soundIcon');
+      const label = document.getElementById('soundLabel');
+      if (isSoundOn) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        label.innerText = '罄鐘音效: 開';
+        playZenTone('wood');
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        label.innerText = '罄鐘音效: 關';
+      }
+      lucide.createIcons();
+    }
+
+    /* =====================================================================
+     * 5. HIGH-CLARITY CONCRETE ANATOMICAL DEMONSTRATION SVGS
+     * ===================================================================== */
+    function renderStepDemonstrationSvg(animKey) {
+      switch (animKey) {
+        case 'neck-tilt':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <path d="M40 120 Q80 110 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
+              <path d="M72 112 L72 96 M88 112 L88 96" stroke="#006284" stroke-width="2"/>
+              <path d="M46 118 Q62 100 74 94" stroke="#D08C60" stroke-width="6" stroke-linecap="round" opacity="0.85" class="breath-anim"/>
+              <g class="anim-head-tilt">
+                <ellipse cx="80" cy="62" rx="26" ry="30" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+                <circle cx="80" cy="30" r="7" fill="#006284"/>
+                <path d="M72 64 Q75 60 78 64" stroke="#006284" stroke-width="2" fill="none"/>
+                <path d="M84 64 Q87 60 90 64" stroke="#006284" stroke-width="2" fill="none"/>
+                <path d="M120 120 Q128 78 98 42" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M102 54 L114 62 L106 66" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'neck-diag':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <path d="M40 120 Q80 112 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
+              <path d="M56 116 Q68 96 74 88" stroke="#D08C60" stroke-width="6" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
+              <g class="anim-head-tilt">
+                <ellipse cx="82" cy="66" rx="26" ry="28" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <circle cx="86" cy="68" r="2.5" fill="#006284"/>
+                <path d="M120 120 Q126 80 92 48" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <line x1="90" y1="52" x2="102" y2="70" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'neck-roll':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <path d="M40 120 Q80 108 120 120 L120 140 L40 140 Z" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
+              <ellipse cx="80" cy="60" rx="26" ry="30" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+              <circle cx="80" cy="28" r="7" fill="#006284"/>
+              <path d="M44 100 A 10 10 0 1 1 54 116" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              <path d="M116 100 A 10 10 0 1 0 106 116" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            </svg>
+          `;
+        case 'head-comb':
+        case 'head-temple':
+        case 'head-lift':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <ellipse cx="80" cy="66" rx="28" ry="32" fill="#F4EFE6" stroke="#006284" stroke-width="2.2"/>
+              <circle cx="80" cy="34" r="8" fill="#006284"/>
+              <circle cx="80" cy="34" r="16" stroke="#D08C60" stroke-width="2" class="breath-anim" fill="none"/>
+              <path d="M50 60 Q65 40 80 40 Q95 40 110 60" stroke="#D08C60" stroke-width="3" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+            </svg>
+          `;
+        case 'wrist-flexor':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <rect x="25" y="70" width="70" height="18" rx="8" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
+              <line x1="30" y1="84" x2="88" y2="84" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
+              <g class="anim-wrist-flex">
+                <path d="M95 79 L120 54 L126 60 L101 85 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M125 50 Q110 40 98 52" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'wrist-extensor':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <rect x="25" y="65" width="70" height="18" rx="8" fill="#E6DFD3" stroke="#006284" stroke-width="2"/>
+              <line x1="30" y1="67" x2="88" y2="67" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
+              <g class="anim-wrist-flex">
+                <path d="M95 72 L118 96 L112 102 L89 78 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M120 104 Q105 110 95 98" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'wrist-roll':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <ellipse cx="80" cy="75" rx="30" ry="24" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+              <path d="M68 65 Q80 72 92 65" stroke="#006284" stroke-width="2" fill="none"/>
+              <path d="M68 85 Q80 78 92 85" stroke="#006284" stroke-width="2" fill="none"/>
+              <path d="M55 75 Q68 60 80 75 Q92 90 105 75" stroke="#D08C60" stroke-width="3" stroke-linecap="round" fill="none" class="breath-anim"/>
+            </svg>
+          `;
+        case 'back-hug':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="anim-scapula-draw">
+                <ellipse cx="80" cy="74" rx="36" ry="42" fill="#EDE7DC" stroke="#006284" stroke-width="2.2"/>
+                <line x1="80" y1="36" x2="80" y2="114" stroke="#006284" stroke-width="1.8" stroke-dasharray="3,3"/>
+                <path d="M58 56 Q48 76 60 94" stroke="#D08C60" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.9" class="breath-anim"/>
+                <path d="M102 56 Q112 76 100 94" stroke="#D08C60" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.9" class="breath-anim"/>
+                <line x1="56" y1="75" x2="40" y2="75" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+                <line x1="104" y1="75" x2="120" y2="75" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'back-ext':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <line x1="68" y1="60" x2="68" y2="130" stroke="#7A8084" stroke-width="3" stroke-linecap="round"/>
+              <g class="anim-spine-wave">
+                <circle cx="85" cy="40" r="18" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M85 58 Q72 82 82 120" stroke="#006284" stroke-width="3.5" fill="none"/>
+                <circle cx="92" cy="72" r="10" fill="#D08C60" opacity="0.3" class="breath-anim"/>
+                <path d="M72 45 Q78 30 88 35" stroke="#006284" stroke-width="2.5" fill="none"/>
+              </g>
+            </svg>
+          `;
+        case 'back-catcow':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="anim-spine-wave">
+                <path d="M30 85 Q80 50 130 85" stroke="#006284" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M50 72 Q80 55 110 72" stroke="#D08C60" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85" class="breath-anim"/>
+                <circle cx="30" cy="85" r="12" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <circle cx="130" cy="85" r="14" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+                <line x1="30" y1="97" x2="30" y2="128" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+                <line x1="130" y1="99" x2="130" y2="128" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </svg>
+          `;
+        case 'waist-twist':
+        case 'waist-side':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <ellipse cx="80" cy="115" rx="35" ry="12" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+              <g class="anim-spine-wave">
+                <circle cx="80" cy="40" r="18" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M80 58 L80 110" stroke="#006284" stroke-width="3"/>
+                <path d="M55 85 Q80 102 105 85" stroke="#D08C60" stroke-width="3.5" stroke-linecap="round" fill="none" class="breath-anim"/>
+                <polygon points="108,82 105,92 98,85" fill="#D08C60"/>
+              </g>
+            </svg>
+          `;
+        case 'waist-child':
+        case 'leg-hamstring':
+        case 'leg-calf':
+        case 'leg-shin':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="anim-hip-rock">
+                <line x1="25" y1="110" x2="135" y2="110" stroke="#006284" stroke-width="4" stroke-linecap="round"/>
+                <line x1="50" y1="114" x2="110" y2="114" stroke="#D08C60" stroke-width="5" stroke-linecap="round" opacity="0.9" class="breath-anim"/>
+                <path d="M25 110 Q60 70 100 88" stroke="#006284" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <circle cx="106" cy="85" r="14" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <line x1="90" y1="95" x2="130" y2="108" stroke="#D08C60" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </svg>
+          `;
+        case 'hip-figure4':
+        case 'hip-lunge':
+        case 'hip-butterfly':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="anim-hip-rock">
+                <circle cx="80" cy="38" r="16" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M80 54 L80 90" stroke="#006284" stroke-width="3"/>
+                <path d="M60 120 L80 90 L100 120" stroke="#006284" stroke-width="3" stroke-linecap="round"/>
+                <path d="M68 105 L112 105" stroke="#006284" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="98" cy="98" r="8" fill="#D08C60" opacity="0.6" class="breath-anim"/>
+                <line x1="80" y1="65" x2="95" y2="80" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        case 'ankle-circle':
+        case 'ankle-spread':
+        case 'ankle-achilles':
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="anim-ankle-pump">
+                <path d="M50 35 L70 95 L84 95 L72 35 Z" fill="#EDE7DC" stroke="#006284" stroke-width="2"/>
+                <path d="M70 95 L118 95 Q125 105 110 110 L64 110 Z" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <circle cx="74" cy="98" r="6" fill="#D08C60" class="breath-anim"/>
+                <path d="M105 85 A 14 14 0 1 1 115 105" stroke="#D08C60" stroke-width="2.5" stroke-linecap="round" fill="none" class="anim-arrow-hint"/>
+              </g>
+            </svg>
+          `;
+        default:
+          return `
+            <svg viewBox="0 0 160 140" class="w-40 h-40">
+              <g class="breath-anim">
+                <circle cx="80" cy="50" r="22" fill="#F4EFE6" stroke="#006284" stroke-width="2"/>
+                <path d="M80 72 L80 110" stroke="#006284" stroke-width="3"/>
+                <circle cx="80" cy="50" r="30" stroke="#D08C60" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+              </g>
+            </svg>
+          `;
+      }
+    }
+
+    /* =====================================================================
+     * 6. ACTIVE ZONE & STEP SWITCHING & TWO-STAGE TRANSITIONS
+     * ===================================================================== */
+    function selectZone(zoneKey) {
+      if (!STRETCH_DATA[zoneKey]) return;
+      currentZone = zoneKey;
+      currentStepIndex = 0;
+      resetTimer();
+
+      // Update quick chips
+      document.querySelectorAll('.zone-pill').forEach(pill => {
+        pill.classList.remove('bg-muji-primary', 'text-white');
+        pill.classList.add('bg-muji-light', 'text-muji-primary');
+      });
+      const targetPill = document.getElementById('pill-' + zoneKey);
+      if (targetPill) {
+        targetPill.classList.add('bg-muji-primary', 'text-white');
+        targetPill.classList.remove('bg-muji-light', 'text-muji-primary');
+      }
+
+      // Hide all pulse rings, show current
+      document.querySelectorAll('.pulse-ring').forEach(p => p.classList.add('hidden'));
+      const activePulse = document.getElementById('pulse-' + zoneKey);
+      if (activePulse) activePulse.classList.remove('hidden');
+
+      // Update Zone Badges
+      const info = STRETCH_DATA[zoneKey];
+      document.getElementById('zoneTitleBadge').innerHTML = `<i data-lucide="compass" class="w-4 h-4 text-muji-accent"></i> ${info.point}`;
+      document.getElementById('zoneAcuDesc').innerText = info.name;
+      document.getElementById('zoneShortNote').innerText = info.shortNote;
+      document.getElementById('activeZoneBadgeName').innerText = info.name;
+
+      // Update Tomorrow's Smart Preview according to chosen zone
+      updateTomorrowPrediction(info);
+
+      renderCurrentStep();
+      playZenTone('wood');
+      lucide.createIcons();
+    }
+
+    // Confirm Zone and Transition to Clean Workout Stage
+    function confirmZoneAndStart() {
+      document.getElementById('viewSelectionStage').classList.add('hidden');
+      document.getElementById('viewWorkoutStage').classList.remove('hidden');
+      document.getElementById('headerSubtitleHint').innerText = `正在進行【${STRETCH_DATA[currentZone].name}】15分鐘伸展教學`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      playZenTone('chime');
+    }
+
+    // Return to Zone Selection Stage
+    function backToZoneSelection() {
+      pauseTimer();
+      document.getElementById('viewWorkoutStage').classList.add('hidden');
+      document.getElementById('viewSelectionStage').classList.remove('hidden');
+      document.getElementById('headerSubtitleHint').innerText = '選取欲調理的部位，隨後展開一對一伸展教學';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      playZenTone('wood');
+    }
+
+    // Render Current Step (Guaranteed synchronization!)
+    function renderCurrentStep() {
+      const zone = STRETCH_DATA[currentZone];
+      const step = zone.steps[currentStepIndex];
+
+      document.getElementById('stepCounterLabel').innerText = `步驟 ${currentStepIndex + 1} / ${zone.steps.length} · 專注伸展`;
+      document.getElementById('exerciseName').innerText = step.name;
+      document.getElementById('stretchFocusPart').innerText = `拉伸受力感：${step.focusArea}`;
+      document.getElementById('cueFormula').innerText = step.formula;
+
+      // Inject accurate demonstrative visual
+      document.getElementById('animationContainer').innerHTML = renderStepDemonstrationSvg(step.animKey);
+
+      // 1-2-3 Instruction formula
+      const ul = document.getElementById('exerciseInstructions');
+      ul.innerHTML = step.tips.map(tip => `<li>${tip}</li>`).join('');
+
+      timerDuration = step.duration;
+      timeLeft = timerDuration;
+      updateTimerDisplay();
+      updateCircleProgress();
+    }
+
+    function updateTomorrowPrediction(info) {
+      const targetKey = info.tomorrowTarget;
+      const targetZone = STRETCH_DATA[targetKey];
+      document.getElementById('tomorrowRecZoneName').innerText = `明日推薦部位：${targetZone.name}（${targetZone.point.split('·')[0]}）`;
+      document.getElementById('tomorrowRecReason').innerText = info.tomorrowReason;
+    }
+
+    function previewTomorrowRoutine() {
+      const current = STRETCH_DATA[currentZone];
+      selectZone(current.tomorrowTarget);
+      switchTab('stretch');
+      confirmZoneAndStart();
+    }
+
+    /* =====================================================================
+     * 7. TIMER CONTROLS
+     * ===================================================================== */
+    function updateTimerDisplay() {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function updateCircleProgress() {
+      const circle = document.getElementById('timerProgressCircle');
+      const circumference = 440;
+      const ratio = (timerDuration - timeLeft) / timerDuration;
+      const offset = circumference - (ratio * circumference);
+      circle.style.strokeDashoffset = offset;
+    }
+
+    function toggleTimer() {
+      if (isRunning) {
+        pauseTimer();
+      } else {
+        startTimer();
+      }
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+      playZenTone('chime');
+
+      document.getElementById('playLabel').innerText = '暫停計時';
+      document.getElementById('playIcon').setAttribute('data-lucide', 'pause');
+      document.getElementById('timerStateDesc').innerText = '呼吸伸展中';
+      lucide.createIcons();
+
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+          updateCircleProgress();
+        } else {
+          clearInterval(timerInterval);
+          isRunning = false;
+          playZenTone('wood');
+
+          if (currentStepIndex < STRETCH_DATA[currentZone].steps.length - 1) {
+            currentStepIndex++;
+            renderCurrentStep();
+            startTimer();
+          } else {
+            document.getElementById('timerStateDesc').innerText = '本組完成';
+            document.getElementById('playLabel').innerText = '重新開始';
+            document.getElementById('playIcon').setAttribute('data-lucide', 'rotate-ccw');
+            lucide.createIcons();
+            playZenTone('success');
+            triggerWorkoutCompletion();
+          }
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('playLabel').innerText = '繼續跟練';
+      document.getElementById('playIcon').setAttribute('data-lucide', 'play');
+      document.getElementById('timerStateDesc').innerText = '暫停中';
+      lucide.createIcons();
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      timeLeft = timerDuration;
+      updateTimerDisplay();
+      updateCircleProgress();
+      document.getElementById('playLabel').innerText = '開始伸展';
+      document.getElementById('playIcon').setAttribute('data-lucide', 'play');
+      document.getElementById('timerStateDesc').innerText = '動作準備';
+      lucide.createIcons();
+    }
+
+    function nextStep() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      const zone = STRETCH_DATA[currentZone];
+      currentStepIndex = (currentStepIndex + 1) % zone.steps.length;
+      renderCurrentStep();
+      playZenTone('wood');
+      document.getElementById('playLabel').innerText = '開始伸展';
+      document.getElementById('playIcon').setAttribute('data-lucide', 'play');
+      lucide.createIcons();
+    }
+
+    function prevStep() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      const zone = STRETCH_DATA[currentZone];
+      currentStepIndex = (currentStepIndex - 1 + zone.steps.length) % zone.steps.length;
+      renderCurrentStep();
+      playZenTone('wood');
+      document.getElementById('playLabel').innerText = '開始伸展';
+      document.getElementById('playIcon').setAttribute('data-lucide', 'play');
+      lucide.createIcons();
+    }
+
+    /* =====================================================================
+     * 8. POSTURE HAZARD POPUP (MODAL) THEN STICKER REWARD
+     * ===================================================================== */
+    function triggerWorkoutCompletion() {
+      const zone = STRETCH_DATA[currentZone];
+      document.getElementById('modalHazardHead').innerText = `【${zone.name}】體態警示與防痛指南`;
+      document.getElementById('modalHazardTitle').innerHTML = `<i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> ${zone.hazardTitle}`;
+      document.getElementById('modalHazardDesc').innerText = zone.hazardDesc;
+      document.getElementById('modalPreventionTitle').innerHTML = `<i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-muji-primary"></i> ${zone.preventionTitle}`;
+      document.getElementById('modalPreventionDesc').innerText = zone.preventionDesc;
+      
+      lucide.createIcons();
+      document.getElementById('hazardModal').classList.remove('hidden');
+      playZenTone('chime');
+    }
+
+    function confirmHazardModal() {
+      document.getElementById('hazardModal').classList.add('hidden');
+      logCompletedSession();
+
+      if (!checkInDone) {
+        handleDailyCheckIn();
+      }
+
+      const lockedSticker = CHIBI_STICKERS.find(s => !s.unlocked);
+      if (lockedSticker) {
+        lockedSticker.unlocked = true;
+        saveStorage();
+        renderStickerAlbum();
+        showRewardModal(lockedSticker);
+      } else {
+        playZenTone('success');
+        triggerConfetti();
+        showRewardModal(CHIBI_STICKERS[0], true);
+      }
+    }
+
+    function logCompletedSession() {
+      const now = new Date();
+      const timeStr = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      
+      const zone = STRETCH_DATA[currentZone];
+      const newLog = {
+        dateStr: timeStr,
+        zoneName: `${zone.name}（${zone.point.split('·')[0].trim()}）`,
+        zoneKey: currentZone,
+        duration: 15,
+        note: `完成 15 分鐘放鬆，緩解了${zone.shortNote.slice(0, 15)}...`
+      };
+
+      workoutLogs.unshift(newLog);
+      totalMinutes += 15;
+      document.getElementById('statMinsCount').innerHTML = `${totalMinutes} <span class="text-base font-normal">分鐘</span>`;
+      
+      saveStorage();
+      renderWorkoutLogs();
+    }
+
+    function handleDailyCheckIn() {
+      if (checkInDone) return;
+      checkInDone = true;
+      streakCount++;
+
+      const badge = document.getElementById('stampBadge');
+      badge.classList.add('stamped');
+      document.getElementById('stampText').innerText = '已簽到';
+      document.getElementById('streakDays').innerText = streakCount;
+      document.getElementById('statDaysCount').innerText = streakCount;
+
+      const btn = document.getElementById('btnCheckIn');
+      btn.classList.add('opacity-70', 'pointer-events-none');
+      document.getElementById('checkInBtnLabel').innerText = '今日已打卡';
+
+      playZenTone('chime');
+      triggerConfetti();
+      saveStorage();
+    }
+
+    function showRewardModal(sticker, isAllUnlocked = false) {
+      document.getElementById('unlockedStickerPreview').innerHTML = sticker.svg;
+      if (isAllUnlocked) {
+        document.getElementById('unlockedStickerName').innerText = '和漢圓滿 · 身心大周天';
+        document.getElementById('unlockedStickerDesc').innerText = '今日修行圓滿！您已集滿所有和漢針灸貼圖，經絡柔軟，身心如絮。';
+      } else {
+        document.getElementById('unlockedStickerName').innerText = sticker.name;
+        document.getElementById('unlockedStickerDesc').innerText = sticker.desc;
+      }
+      document.getElementById('rewardModal').classList.remove('hidden');
+      playZenTone('success');
+      triggerConfetti();
+    }
+
+    function closeRewardModal() {
+      document.getElementById('rewardModal').classList.add('hidden');
+    }
+
+    function triggerConfetti() {
+      if (window.confetti) {
+        window.confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#006284', '#D08C60', '#E5E4DE']
+        });
+      }
+    }
+
+    /* =====================================================================
+     * 9. TIMELINE & STICKER RENDERERS
+     * ===================================================================== */
+    function renderWorkoutLogs() {
+      const container = document.getElementById('workoutLogTimeline');
+      if (workoutLogs.length === 0) {
+        container.innerHTML = `<div class="p-4 text-center text-xs text-muji-muted">尚無伸展紀錄，快選取部位開始吧！</div>`;
+        return;
+      }
+
+      container.innerHTML = workoutLogs.map((log, idx) => `
+        <div class="flex items-start gap-3 p-3.5 bg-muji-bg rounded-2xl border border-muji-primary/5 transition-all">
+          <div class="w-8 h-8 rounded-xl bg-muji-primary/10 text-muji-primary flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+            ${idx + 1}
+          </div>
+          <div class="flex-grow">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span class="font-zen font-bold text-xs sm:text-sm text-muji-primary flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-muji-accent inline-block"></span>
+                ${log.zoneName}
+              </span>
+              <span class="text-[11px] text-muji-muted font-mono">${log.dateStr}</span>
+            </div>
+            <p class="text-xs text-muji-ink/80 mt-1 leading-relaxed">${log.note}</p>
+          </div>
+          <span class="text-[11px] bg-white text-muji-primary border border-muji-primary/10 px-2 py-1 rounded-lg shrink-0 font-mono font-medium">
+            +${log.duration}分
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderStickerAlbum() {
+      const container = document.getElementById('stickerGrid');
+      let unlockedCount = 0;
+
+      container.innerHTML = CHIBI_STICKERS.map(stk => {
+        if (stk.unlocked) unlockedCount++;
+        return `
+          <div class="muji-card rounded-3xl p-5 text-center relative transition-all duration-300 ${stk.unlocked ? 'hover:shadow-md' : 'opacity-60 grayscale bg-gray-50/50'}">
+            <div class="absolute top-3.5 right-3.5">
+              ${stk.unlocked 
+                ? '<span class="text-[10px] font-zen font-bold text-muji-accent bg-muji-accentLight px-2 py-0.5 rounded-full">已珍藏</span>' 
+                : '<span class="text-[10px] text-muji-muted bg-gray-200/80 px-2 py-0.5 rounded-full flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> 未解鎖</span>'}
+            </div>
+            <div class="py-3">
+              ${stk.svg}
+            </div>
+            <h4 class="font-zen font-bold text-sm text-muji-primary mt-2">${stk.name}</h4>
+            <p class="text-xs text-muji-muted mt-1 leading-relaxed px-2">${stk.desc}</p>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('collectedCount').innerText = unlockedCount;
+      lucide.createIcons();
+    }
+
+    function switchTab(tabKey) {
+      ['stretch', 'album', 'records'].forEach(t => {
+        const sec = document.getElementById('tab-' + t);
+        const btn = document.getElementById('nav-' + t);
+        if (t === tabKey) {
+          sec.classList.remove('hidden');
+          btn.classList.add('text-white', 'bg-muji-primary');
+          btn.classList.remove('text-muji-muted', 'hover:bg-muji-light');
+        } else {
+          sec.classList.add('hidden');
+          btn.classList.remove('text-white', 'bg-muji-primary');
+          btn.classList.add('text-muji-muted', 'hover:bg-muji-light');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* =====================================================================
+     * 10. INITIALIZATION
+     * ===================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      const monthNames = ['睦月', '如月', '彌生', '卯月', '皋月', '水無月', '文月', '葉月', '長月', '神無月', '霜月', '師走'];
+      document.getElementById('todayDateStr').innerText = `${now.getFullYear()}年 · ${monthNames[now.getMonth()]} ${now.getDate()}日`;
+
+      loadStorage();
+
+      if (checkInDone) {
+        const badge = document.getElementById('stampBadge');
+        badge.classList.add('stamped');
+        document.getElementById('stampText').innerText = '已簽到';
+        const btn = document.getElementById('btnCheckIn');
+        btn.classList.add('opacity-70', 'pointer-events-none');
+        document.getElementById('checkInBtnLabel').innerText = '今日已打卡';
+      }
+
+      document.getElementById('streakDays').innerText = streakCount;
+      document.getElementById('statDaysCount').innerText = streakCount;
+      document.getElementById('statMinsCount').innerHTML = `${totalMinutes} <span class="text-base font-normal">分鐘</span>`;
+
+      selectZone('neck');
+      renderStickerAlbum();
+      renderWorkoutLogs();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
